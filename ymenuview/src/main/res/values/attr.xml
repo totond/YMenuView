@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="YMenuView">
+        <attr name="optionButtonWidth" format="dimension"/>
+        <attr name="optionButtonHeight" format="dimension"/>
+        <attr name="menuButtonWidth" format="dimension"/>
+        <attr name="menuButtonHeight" format="dimension"/>
+        <attr name="menuButtonRightMargin" format="dimension"/>
+        <attr name="menuButtonBottomMargin" format="dimension"/>
+        <attr name="optionPositionCounts" format="integer"/>
+        <attr name="optionToMenuBottomMargin" format="dimension"/>
+        <attr name="optionToMenuRightMargin" format="dimension"/>
+        <attr name="optionHorizontalMargin" format="dimension"/>
+        <attr name="optionVerticalMargin" format="dimension"/>
+        <attr name="optionLines" format="integer"/>
+        <attr name="menuButtonBackGround" format="reference"/>
+        <attr name="optionsBackGround" format="reference"/>
+        <attr name="sd_animMode" format="enum">
+            <enum name="FROM_BUTTON_LEFT" value="0"/>
+            <enum name="FROM_BUTTON_TOP" value="1"/>
+            <enum name="FROM_RIGHT" value="2"/>
+            <enum name="FROM_BOTTOM" value="3"/>
+        </attr>
+        <attr name="sd_duration" format="integer"/>
+    </declare-styleable>
+</resources>
