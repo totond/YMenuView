@@ -5,7 +5,9 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 
 import java.lang.annotation.Retention;
@@ -18,10 +20,10 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 public class OptionButton extends android.support.v7.widget.AppCompatImageView implements YMenuView.OnShowDisappearListener{
-    private Animation showAnimation,disappearAnimation;
+    private AnimationSet showAnimation,disappearAnimation;
     public static final int FROM_BUTTON_LEFT = 0 , FROM_BUTTON_TOP = 1,FROM_RIGHT = 2,FROM_BOTTOM = 3;
     private @SD_Animation int mSD_Animation = FROM_BUTTON_LEFT;
-    private int mDuration = 400;
+    private int mDuration = 600;
 
     @IntDef({FROM_BUTTON_LEFT, FROM_BUTTON_TOP,FROM_RIGHT,FROM_BOTTOM})
     @Retention(RetentionPolicy.SOURCE)
@@ -88,61 +90,74 @@ public class OptionButton extends android.support.v7.widget.AppCompatImageView i
     }
 
     public void setShowAnimation(int duration) {
-
+        //获取父ViewGroup的对象，用于获取宽高参数
         YMenuView parent = (YMenuView) getParent();
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
+        alphaAnimation.setDuration(duration);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,0);
         switch (mSD_Animation){
             //从MenuButton的左边移入
             case FROM_BUTTON_LEFT:
-                showAnimation= new TranslateAnimation(parent.getYMenuButton().getX() - getRight(),0
+                translateAnimation= new TranslateAnimation(parent.getYMenuButton().getX() - getRight(),0
                         ,0,0);
-                showAnimation.setDuration(duration);
+                translateAnimation.setDuration(duration);
                 break;
             case FROM_RIGHT:
                 //从右边缘移入
-                showAnimation= new TranslateAnimation((parent.getWidth() - getWidth()),0,0,0);
-                showAnimation.setDuration(duration);
+                translateAnimation= new TranslateAnimation((parent.getWidth() - getX()),0,0,0);
+                translateAnimation.setDuration(duration);
 //                showAnimation.setInterpolator(new OvershootInterpolator(1.3f));
                 break;
             case FROM_BUTTON_TOP:
                 //从MenuButton的上边缘移入
-                showAnimation= new TranslateAnimation(0,0,
+                translateAnimation= new TranslateAnimation(0,0,
                         parent.getYMenuButton().getY() - getBottom(),0);
-                showAnimation.setDuration(duration);
+                translateAnimation.setDuration(duration);
                 break;
             case FROM_BOTTOM:
                 //从下边缘移入
-                showAnimation = new TranslateAnimation(0,0,parent.getHeight(),0);
-                showAnimation.setDuration(duration);
+                translateAnimation = new TranslateAnimation(0,0,parent.getHeight() - getY(),0);
+                translateAnimation.setDuration(duration);
         }
+        showAnimation = new AnimationSet(true);
+        showAnimation.addAnimation(translateAnimation);
+        showAnimation.addAnimation(alphaAnimation);
 
     }
 
     public void setDisappearAnimation(int duration) {
+        //获取父ViewGroup的对象，用于获取宽高参数
         YMenuView parent = (YMenuView) getParent();
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
+        alphaAnimation.setDuration(duration);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,0);
         switch (mSD_Animation) {
             case FROM_BUTTON_LEFT:
                 //从MenuButton的左边移入
-                disappearAnimation= new TranslateAnimation(0,parent.getYMenuButton().getX() - getRight()
+                translateAnimation= new TranslateAnimation(0,parent.getYMenuButton().getX() - getRight()
                         ,0,0);
-                disappearAnimation.setDuration(duration);
+                translateAnimation.setDuration(duration);
                 break;
             case FROM_RIGHT:
                 //从右边缘移出
-                disappearAnimation = new TranslateAnimation(0, (parent.getWidth()),
+                translateAnimation = new TranslateAnimation(0, (parent.getWidth()- getX()),
                         0, 0);
-                disappearAnimation.setDuration(duration);
+                translateAnimation.setDuration(duration);
                 break;
             case FROM_BUTTON_TOP:
                 //从MenuButton的上边移入
-                disappearAnimation = new TranslateAnimation(0, 0,
+                translateAnimation = new TranslateAnimation(0, 0,
                         0, parent.getYMenuButton().getY() - getBottom());
-                disappearAnimation.setDuration(duration);
+                translateAnimation.setDuration(duration);
                 break;
             case FROM_BOTTOM:
                 //从下边缘移出
-                disappearAnimation = new TranslateAnimation(0,0,0,parent.getHeight());
-                disappearAnimation.setDuration(duration);
+                translateAnimation = new TranslateAnimation(0,0,0,parent.getHeight() - getY());
+                translateAnimation.setDuration(duration);
         }
+        disappearAnimation = new AnimationSet(true);
+        disappearAnimation.addAnimation(translateAnimation);
+        disappearAnimation.addAnimation(alphaAnimation);
         disappearAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

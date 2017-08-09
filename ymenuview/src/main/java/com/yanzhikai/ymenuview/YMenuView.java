@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 /**
  * @author Yanzhikai
- * @Description 一个可以弹出收回菜单栏的自定义View，带有动画效果
+ * 一个可以弹出收回菜单栏的自定义View，带有动画效果
  */
 
 public class YMenuView extends RelativeLayout {
@@ -29,7 +29,7 @@ public class YMenuView extends RelativeLayout {
     private int drawableIds[] = {R.drawable.zero,R.drawable.one, R.drawable.two, R.drawable.three,
             R.drawable.four, R.drawable.five,R.drawable.six,R.drawable.seven};
     private ArrayList<OptionButton> optionButtonList;
-    private ArrayList<OnShowDisappearListener> listenerList;
+//    private ArrayList<OnShowDisappearListener> listenerList;
     private int optionPositionCount = 8;
     private int optionLines = 1;
     private int[] banArray = {};
@@ -37,9 +37,9 @@ public class YMenuView extends RelativeLayout {
     private int mYOptionButtonWidth = 80, mYOptionButtonHeight = 80;
     private int mYMenuButtonRightMargin = 50, mYMenuButtonBottomMargin = 50;
     private int mYOptionVerticalMargin = 15, mYOptionHorizontalMargin = 15;
-    private int mYOptionToMenuBottomMargin = 160, mYOptionToMenuRightMargin = 35;
+    private int mYOptionToMenuBottomMargin = 160, mYOptionToMenuRightMargin = 50;
     private @DrawableRes int mMenuButtonBackGroundId = R.drawable.setting;
-    private @DrawableRes Integer mOptionsBackGroundId = R.drawable.background_option_button;
+    private @DrawableRes int mOptionsBackGroundId = R.drawable.null_drawable;
     private boolean isShowMenu = false;
     private Animation menuOpenAnimation, menuCloseAnimation;
     private Animation.AnimationListener animationListener;
@@ -78,7 +78,7 @@ public class YMenuView extends RelativeLayout {
         mYOptionToMenuRightMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToMenuRightMargin, mYOptionToMenuRightMargin);
         mYOptionVerticalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionVerticalMargin, mYOptionVerticalMargin);
         mYOptionHorizontalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionHorizontalMargin, mYOptionHorizontalMargin);
-        mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, R.drawable.null_drawable);
+        mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, mMenuButtonBackGroundId);
         mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround,R.drawable.null_drawable);
         mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
         mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration,mOptionSD_AnimationDuration);
@@ -174,16 +174,21 @@ public class YMenuView extends RelativeLayout {
     //设置选项按钮
     private void setOptionButtons() throws Exception {
         optionButtonList = new ArrayList<>(optionPositionCount);
-        listenerList = new ArrayList<>(optionPositionCount);
+//        listenerList = new ArrayList<>(optionPositionCount);
 
 
+        boolean isBan = true;
         for (int i = 0,n = 0; i < optionPositionCount; i++) {
-            if (banArray.length > 0) {
+            if (isBan && banArray.length > 0) {
                 //Ban判断
-                if (i > banArray[n]) {
-                    throw new Exception("Ban数组设置不合理，含有负数或者超出范围");
+                if (i > banArray[n] || banArray[n] > optionPositionCount - 1) {
+                    throw new Exception("Ban数组设置不合理，含有负数、重复数字或者超出范围");
                 } else if (i == banArray[n]) {
-                    n++;
+                    if (n < banArray.length - 1) {
+                        n++;
+                    }else {
+                        isBan = false;
+                    }
                     continue;
                 }
             }
@@ -193,14 +198,14 @@ public class YMenuView extends RelativeLayout {
             button.setDuration(mOptionSD_AnimationDuration);
             int btnId = generateViewId();
             button.setId(btnId);
-            optionButtonList.add(button);
+
 
             RelativeLayout.LayoutParams layoutParams = new LayoutParams(mYOptionButtonWidth, mYOptionButtonHeight);
 
             //计算OptionButton的位置
             int position = i % optionLines;
             layoutParams.setMarginEnd(mYOptionToMenuRightMargin
-                    + mYOptionHorizontalMargin * (position + 1)
+                    + mYOptionHorizontalMargin * position
                     + mYOptionButtonWidth * position);
             layoutParams.bottomMargin = mYOptionToMenuBottomMargin
                     + (mYOptionButtonHeight + mYOptionVerticalMargin) * (i / optionLines);
@@ -212,7 +217,8 @@ public class YMenuView extends RelativeLayout {
 
             addView(button);
 
-            listenerList.add(button);
+            optionButtonList.add(button);
+//            listenerList.add(button);
         }
     }
 
@@ -224,14 +230,14 @@ public class YMenuView extends RelativeLayout {
             if (drawableId == null){
                 optionButtonList.get(i).setBackground(null);
             }else {
-                optionButtonList.get(i).setBackground(getResources().getDrawable(R.drawable.background_option_button));
+                optionButtonList.get(i).setBackgroundResource(drawableId);
             }
 
         }
 
     }
 
-    public void setOptionsImages(int... drawableIds) throws Exception {
+    private void setOptionsImages(int... drawableIds) throws Exception {
         this.drawableIds = drawableIds;
         if (optionPositionCount > drawableIds.length + banArray.length) {
             throw new Exception("Drawable资源数量不足");
@@ -251,21 +257,17 @@ public class YMenuView extends RelativeLayout {
 
     public void showMenu() {
         if (!isShowMenu) {
-            for (OnShowDisappearListener listener : listenerList) {
-                listener.onShow();
+            for (OptionButton button : optionButtonList) {
+                button.onShow();
             }
             isShowMenu = true;
         }
     }
 
     public void closeMenu() {
-//        for (Button button : optionButtonList){
-//            button.setVisibility(INVISIBLE);
-//            Log.d(TAG, "closeMenu: " + button.getId());
-//        }
         if (isShowMenu) {
-            for (OnShowDisappearListener listener : listenerList) {
-                listener.onClose();
+            for (OptionButton button : optionButtonList) {
+                button.onClose();
             }
             isShowMenu = false;
         }
@@ -273,15 +275,81 @@ public class YMenuView extends RelativeLayout {
 
     public void disappearMenu() {
         if (isShowMenu) {
-            for (OnShowDisappearListener listener : listenerList) {
-                listener.onDisappear();
+            for (OptionButton button : optionButtonList) {
+                button.onDisappear();
             }
             isShowMenu = false;
         }
     }
 
+
+
     public Button getYMenuButton() {
         return mYMenuButton;
+    }
+
+    public int getOptionLines() {
+        return optionLines;
+    }
+
+    public int[] getDrawableIds() {
+        return drawableIds;
+    }
+
+    public int getMenuButtonBackGroundId() {
+        return mMenuButtonBackGroundId;
+    }
+
+    public int getOptionsBackGroundId() {
+        return mOptionsBackGroundId;
+    }
+
+    public int getOptionSD_AnimationDuration() {
+        return mOptionSD_AnimationDuration;
+    }
+
+    public int getOptionSD_AnimationMode() {
+        return mOptionSD_AnimationMode;
+    }
+
+    public int getYMenuButtonBottomMargin() {
+        return mYMenuButtonBottomMargin;
+    }
+
+    public int getYMenuButtonRightMargin() {
+        return mYMenuButtonRightMargin;
+    }
+
+    public int getYMenuButtonWidth() {
+        return mYMenuButtonWidth;
+    }
+
+    public int getYMenuButtonHeight() {
+        return mYMenuButtonHeight;
+    }
+
+    public int getYOptionButtonWidth() {
+        return mYOptionButtonWidth;
+    }
+
+    public int getYOptionButtonHeight() {
+        return mYOptionButtonHeight;
+    }
+
+    public int getYOptionHorizontalMargin() {
+        return mYOptionHorizontalMargin;
+    }
+
+    public int getYOptionVerticalMargin() {
+        return mYOptionVerticalMargin;
+    }
+
+    public int getYOptionToMenuBottomMargin() {
+        return mYOptionToMenuBottomMargin;
+    }
+
+    public int getYOptionToMenuRightMargin() {
+        return mYOptionToMenuRightMargin;
     }
 
     public ArrayList<OptionButton> getOptionButtonList() {
@@ -308,24 +376,103 @@ public class YMenuView extends RelativeLayout {
         }
     }
 
+
+    /*
+     * 下面的set方法需要在View还没有初始化的时候调用，例如Activity的onCreate方法里
+     */
+
+    //设置OptionButton的Drawable资源
+    public void setOptionDrawableIds(int... drawableIds) {
+        this.drawableIds = drawableIds;
+    }
+
+    //设置MenuButton弹出菜单选项时候MenuButton自身的动画，默认为顺时针旋转180度，为空则是关闭动画
     public void setMenuOpenAnimation(Animation menuOpenAnimation) {
         menuOpenAnimation.setAnimationListener(animationListener);
         this.menuOpenAnimation = menuOpenAnimation;
 
     }
 
+    //设置MenuButton收回菜单选项时候MenuButton自身的动画，默认为逆时针旋转180度，为空则是关闭动画
     public void setMenuCloseAnimation(Animation menuCloseAnimation) {
         menuCloseAnimation.setAnimationListener(animationListener);
         this.menuCloseAnimation = menuCloseAnimation;
+    }
+
+    //设置禁止放置选项的位置序号，注意不能输入负数、重复数字或者大于等于optionPositionCounts的数，会报错。
+    public void setBanArray(int... banArray) {
+        this.banArray = banArray;
+    }
+
+    //设置“选项”占格个数
+    public void setOptionPositionCount(int optionPositionCount) {
+        this.optionPositionCount = optionPositionCount;
     }
 
     public void setOptionLines(int optionLines) {
         this.optionLines = optionLines;
     }
 
-    public void setBanArray(int... banArray) {
-        this.banArray = banArray;
+
+    public void setYMenuButtonWidth(int mYMenuButtonWidth) {
+        this.mYMenuButtonWidth = mYMenuButtonWidth;
     }
+
+    public void setYMenuButtonHeight(int mYMenuButtonHeight) {
+        this.mYMenuButtonHeight = mYMenuButtonHeight;
+    }
+
+    public void setYMenuButtonBottomMargin(int mYMenuButtonBottomMargin) {
+        this.mYMenuButtonBottomMargin = mYMenuButtonBottomMargin;
+    }
+
+    public void setYMenuButtonRightMargin(int mYMenuButtonRightMargin) {
+        this.mYMenuButtonRightMargin = mYMenuButtonRightMargin;
+    }
+
+    public void setYOptionButtonWidth(int mYOptionButtonWidth) {
+        this.mYOptionButtonWidth = mYOptionButtonWidth;
+    }
+
+    public void setYOptionButtonHeight(int mYOptionButtonHeight) {
+        this.mYOptionButtonHeight = mYOptionButtonHeight;
+    }
+
+    public void setYOptionToMenuBottomMargin(int mYOptionToMenuBottomMargin) {
+        this.mYOptionToMenuBottomMargin = mYOptionToMenuBottomMargin;
+    }
+
+    public void setYOptionToMenuRightMargin(int mYOptionToMenuRightMargin) {
+        this.mYOptionToMenuRightMargin = mYOptionToMenuRightMargin;
+    }
+
+    public void setYOptionHorizontalMargin(int mYOptionHorizontalMargin) {
+        this.mYOptionHorizontalMargin = mYOptionHorizontalMargin;
+    }
+
+    public void setmYOptionVerticalMargin(int mYOptionVerticalMargin) {
+        this.mYOptionVerticalMargin = mYOptionVerticalMargin;
+    }
+
+    //使用OptionButton里面的静态变量，如OptionButton.FROM_BUTTON_LEFT
+    public void setOptionSD_AnimationMode(int optionSD_AnimationMode) {
+        this.mOptionSD_AnimationMode = optionSD_AnimationMode;
+    }
+
+    public void setOptionSD_AnimationDuration(int optionSD_AnimationDuration) {
+        this.mOptionSD_AnimationDuration = optionSD_AnimationDuration;
+    }
+
+    public void setMenuButtonBackGroundId(int menuButtonBackGroundId) {
+        this.mMenuButtonBackGroundId = menuButtonBackGroundId;
+    }
+
+    public void setOptionsBackGroundId(int optionsBackGroundId) {
+        this.mOptionsBackGroundId = optionsBackGroundId;
+    }
+
+
+
 
     public interface OnOptionsClickListener {
         public void onOptionsClick(int index);

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/ymv"
-        app:optionPositionCounts="5"
+        app:optionPositionCounts="8"
+        app:optionLines="1"
         app:menuButtonBackGround="@drawable/setting"
         app:optionsBackGround="@drawable/background_option_button" />
 
@@ -19,7 +20,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--android:id="@+id/ymv"-->
-        <!--app:optionToHorizontalMenuMargin="50dp"-->
+        <!--app:optionToMenuRightMargin="50dp"-->
         <!--app:optionPositionCounts="8"-->
         <!--app:optionLines="3"-->
         <!--app:sd_animMode="FROM_RIGHT"-->
@@ -30,8 +31,8 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--android:id="@+id/ymv"-->
-        <!--app:optionToHorizontalMenuMargin="80dp"-->
-        <!--app:optionToMenuVerticalMargin="25dp"-->
+        <!--app:optionToMenuRightMargin="80dp"-->
+        <!--app:optionToMenuBottomMargin="25dp"-->
         <!--app:optionPositionCounts="5"-->
         <!--app:optionLines="5"-->
         <!--app:sd_animMode="FROM_BUTTON_LEFT"-->

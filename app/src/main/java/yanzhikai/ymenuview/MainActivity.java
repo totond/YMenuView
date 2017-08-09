@@ -16,16 +16,10 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         setContentView(R.layout.activity_main);
         mYMenuView = (YMenuView) findViewById(R.id.ymv);
         mYMenuView.setOnOptionsClickListener(this);
-//        mYMenuView.setBanArray(0,2,6,8);
-        try {
-            mYMenuView.setOptionsImages(R.drawable.zero,R.drawable.one,R.drawable.two
-                    ,R.drawable.three,R.drawable.four);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        mYMenuView.setBanArray(0,2,6);
+//              mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
+//                ,R.drawable.three,R.drawable.four);
     }
-
-
 
 
     @Override

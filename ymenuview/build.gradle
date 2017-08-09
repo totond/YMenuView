@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'//添加
+
 
 android {
     compileSdkVersion 25
@@ -19,6 +21,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        encoding "UTF-8"
+    }
 }
 
 dependencies {
@@ -28,4 +33,14 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
+}
+
+publish {
+    userOrg = 'yanzhikaijky'
+    repoName = 'CustomViewRepository'   //Repository的名字
+    groupId = 'com.yanzhikaijky'
+    artifactId = 'YMenuView'   //项目名
+    publishVersion = '1.0.0'            //版本号
+    desc = 'a menuView similar to PathMenu'      //description说明，随便写
+    website = 'https://github.com/totond/YMenuView'//VCS地址，这里最好写GitHub的，我试过不写然后上传不了
 }
