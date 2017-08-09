@@ -10,7 +10,7 @@
 ### Gradle
 
 ```
-    compile 'com.yanzhikaijky:YMenuView:1.0.0'
+    compile 'com.yanzhikaijky:YMenuView:1.0.1'
 ```
 
 ### 属性
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 
 ### demo演示
 #### 竖放式
-**　　XML:**
+**XML:**
 
 ```
     <com.yanzhikai.ymenuview.YMenuView
@@ -138,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         app:menuButtonBackGround="@drawable/setting"
         app:optionsBackGround="@drawable/background_option_button" />
 ```
-**　　效果:**
+**效果:**
 ![](http://i.imgur.com/ns7fcnE.gif)
 
 #### 横放式
-**　　XML:**
+**XML:**
 
 ```
 <com.yanzhikai.ymenuview.YMenuView
@@ -157,11 +157,11 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         app:menuButtonBackGround="@drawable/setting"
         app:optionsBackGround="@drawable/background_option_button" />
 ```
-**　　效果:**
+**效果:**
 ![](http://i.imgur.com/4gSGuyi.gif)
 
 #### Ban列表式
-**　　XML:**
+**XML:**
 
 ```
     <com.yanzhikai.ymenuview.YMenuView
@@ -176,14 +176,14 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         app:optionsBackGround="@drawable/background_option_button" />
 ```
 
-**　　Java代码:**
+**Java代码:**
 
 ```
         mYMenuView = (YMenuView) findViewById(R.id.ymv);
         mYMenuView.setBanArray(0,2,6);
 ```
 
-**　　效果:**
+**效果:**
 ![](http://i.imgur.com/V9wTXJz.gif)
 　　可以看出0、2、6号位都没有放置OptionButton。
 
