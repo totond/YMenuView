@@ -37,10 +37,10 @@ dependencies {
 
 publish {
     userOrg = 'yanzhikaijky'
-    repoName = 'CustomViewRepository'   //Repository的名字
+    repoName = 'CustomViewRepository'
     groupId = 'com.yanzhikaijky'
-    artifactId = 'YMenuView'   //项目名
-    publishVersion = '1.0.1'            //版本号
-    desc = 'a menuView similar to PathMenu'      //description说明，随便写
-    website = 'https://github.com/totond/YMenuView'//VCS地址，这里最好写GitHub的，我试过不写然后上传不了
+    artifactId = 'YMenuView'
+    publishVersion = '1.0.2'
+    desc = 'a menuView similar to PathMenu'
+    website = 'https://github.com/totond/YMenuView'
 }

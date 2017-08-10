@@ -46,6 +46,7 @@ public class YMenuView extends RelativeLayout {
     private int mOptionSD_AnimationMode = OptionButton.FROM_BUTTON_TOP;
     private int mOptionSD_AnimationDuration = 600;
     private OnOptionsClickListener mOnOptionsClickListener;
+    private ViewTreeObserver.OnPreDrawListener onPreDrawListener;
 
     public YMenuView(Context context) {
         super(context);
@@ -87,8 +88,9 @@ public class YMenuView extends RelativeLayout {
     private void init(Context context) {
         mContext = context;
 
+
         ViewTreeObserver viewTreeObserver = getViewTreeObserver();
-        viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+        onPreDrawListener = new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 setMenuButton();
@@ -102,7 +104,8 @@ public class YMenuView extends RelativeLayout {
                 getViewTreeObserver().removeOnPreDrawListener(this);
                 return false;
             }
-        });
+        };
+        viewTreeObserver.addOnPreDrawListener(onPreDrawListener);
         initMenuAnim();
         initBan();
     }
@@ -246,7 +249,6 @@ public class YMenuView extends RelativeLayout {
         for (int i = 0; i < optionButtonList.size(); i++) {
             optionButtonList.get(i).setOnClickListener(new MyOnClickListener(i));
             if (drawableIds == null){
-                Log.d(TAG, "setOptionsImages: ");
                 optionButtonList.get(i).setImageDrawable(null);
             }else {
                 optionButtonList.get(i).setImageResource(drawableIds[i]);
@@ -283,6 +285,25 @@ public class YMenuView extends RelativeLayout {
     }
 
 
+    //清除所有View，用于之后刷新
+    private void cleanMenu(){
+        removeAllViews();
+        if (optionButtonList != null) {
+            optionButtonList.clear();
+        }
+        isShowMenu = false;
+        if (onPreDrawListener != null) {
+            getViewTreeObserver().removeOnPreDrawListener(onPreDrawListener);
+        }
+    }
+
+    /*
+     * 对整个YMenuView进行重新初始化，用于在做完一些设定之后刷新
+     */
+    public void refresh(){
+        cleanMenu();
+        init(mContext);
+    }
 
     public Button getYMenuButton() {
         return mYMenuButton;
@@ -379,6 +400,7 @@ public class YMenuView extends RelativeLayout {
 
     /*
      * 下面的set方法需要在View还没有初始化的时候调用，例如Activity的onCreate方法里
+     * 如果不在View还没初始化的时候调用，请使用完set这些方法之后调用refresh()方法刷新
      */
 
     //设置OptionButton的Drawable资源

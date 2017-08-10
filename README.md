@@ -47,8 +47,30 @@
 **除了上面的XML属性的set、get方法，还有下面的一些重要方法：**
 
 ```
+    //清除所有View，用于之后刷新
+    private void cleanMenu(){
+        removeAllViews();
+        if (optionButtonList != null) {
+            optionButtonList.clear();
+        }
+        isShowMenu = false;
+        if (onPreDrawListener != null) {
+            getViewTreeObserver().removeOnPreDrawListener(onPreDrawListener);
+        }
+    }
+
+    /*
+     * 对整个YMenuView进行重新初始化，用于在做完一些设定之后刷新
+     */
+    public void refresh(){
+        cleanMenu();
+        init(mContext);
+    }
+
+
     /*
      * 下面的set方法需要在View还没有初始化的时候调用，例如Activity的onCreate方法里
+     * 如果不在View还没初始化的时候调用，请使用完set这些方法之后调用refresh()方法刷新
      */
 
     //设置OptionButton的Drawable资源
