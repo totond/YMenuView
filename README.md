@@ -10,7 +10,7 @@
 ### Gradle
 
 ```
-    compile 'com.yanzhikaijky:YMenuView:1.0.1'
+    compile 'com.yanzhikaijky:YMenuView:1.0.2'
 ```
 
 ### 属性
