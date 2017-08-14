@@ -147,7 +147,11 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 }
 ```
 
+
 ### demo演示
+###ViewGroup的宽高
+　　由于YMenuView是用ViewGroup来实现的，所以如果选项OptionButton的位置超出YMenuView的范围的话，会出现不能收回的情况。demo里面使用的是match_parent，实际中使用可以把YMenuView放到其他视图的上层。
+
 #### 竖放式
 **XML:**
 
