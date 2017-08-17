@@ -7,14 +7,14 @@
     tools:context="yanzhikai.ymenuview.MainActivity"
     android:background="#666666">
 
-    <com.yanzhikai.ymenuview.YMenuView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/ymv"
-        app:optionPositionCounts="8"
-        app:optionLines="1"
-        app:menuButtonBackGround="@drawable/setting"
-        app:optionsBackGround="@drawable/background_option_button" />
+    <!--<com.yanzhikai.ymenuview.YMenuView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/ymv"-->
+        <!--app:optionPositionCounts="8"-->
+        <!--app:optionColumns="1"-->
+        <!--app:menuButtonBackGround="@drawable/setting"-->
+        <!--app:optionsBackGround="@drawable/background_option_button" />-->
 
     <!--<com.yanzhikai.ymenuview.YMenuView-->
         <!--android:layout_width="match_parent"-->
@@ -22,21 +22,21 @@
         <!--android:id="@+id/ymv"-->
         <!--app:optionToMenuRightMargin="50dp"-->
         <!--app:optionPositionCounts="8"-->
-        <!--app:optionLines="3"-->
+        <!--app:optionColumns="3"-->
         <!--app:sd_animMode="FROM_RIGHT"-->
         <!--app:menuButtonBackGround="@drawable/setting"-->
         <!--app:optionsBackGround="@drawable/background_option_button" />-->
 
-    <!--<com.yanzhikai.ymenuview.YMenuView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/ymv"-->
-        <!--app:optionToMenuRightMargin="80dp"-->
-        <!--app:optionToMenuBottomMargin="25dp"-->
-        <!--app:optionPositionCounts="5"-->
-        <!--app:optionLines="5"-->
-        <!--app:sd_animMode="FROM_BUTTON_LEFT"-->
-        <!--app:menuButtonBackGround="@drawable/setting"-->
-        <!--app:optionsBackGround="@drawable/background_option_button" />-->
+    <com.yanzhikai.ymenuview.YMenuView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ymv"
+        app:optionToMenuRightMargin="80dp"
+        app:optionToMenuBottomMargin="25dp"
+        app:optionPositionCounts="5"
+        app:optionColumns="5"
+        app:sd_animMode="FROM_BUTTON_LEFT"
+        app:menuButtonBackGround="@drawable/setting"
+        app:optionsBackGround="@drawable/background_option_button" />
 
 </LinearLayout>

@@ -40,7 +40,7 @@ publish {
     repoName = 'CustomViewRepository'
     groupId = 'com.yanzhikaijky'
     artifactId = 'YMenuView'
-    publishVersion = '1.0.2'
+    publishVersion = '1.0.3'
     desc = 'a menuView similar to PathMenu'
     website = 'https://github.com/totond/YMenuView'
 }

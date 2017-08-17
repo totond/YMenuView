@@ -12,7 +12,7 @@
         <attr name="optionToMenuRightMargin" format="dimension"/>
         <attr name="optionHorizontalMargin" format="dimension"/>
         <attr name="optionVerticalMargin" format="dimension"/>
-        <attr name="optionLines" format="integer"/>
+        <attr name="optionColumns" format="integer"/>
         <attr name="menuButtonBackGround" format="reference"/>
         <attr name="optionsBackGround" format="reference"/>
         <attr name="sd_animMode" format="enum">
@@ -22,5 +22,6 @@
             <enum name="FROM_BOTTOM" value="3"/>
         </attr>
         <attr name="sd_duration" format="integer"/>
+        <attr name="isShowMenu" format="boolean"/>
     </declare-styleable>
 </resources>

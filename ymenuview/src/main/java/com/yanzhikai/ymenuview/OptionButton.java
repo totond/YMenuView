@@ -15,8 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author yanzhikai
- *
- * 作用：这个是菜单弹出的选项按钮，在这里主要对其进行进出动画的设置。
+ * Description: 这个是菜单弹出的选项按钮，在这里主要对其进行进出动画的设置。
  */
 
 public class OptionButton extends android.support.v7.widget.AppCompatImageView implements YMenuView.OnShowDisappearListener{
@@ -54,6 +53,7 @@ public class OptionButton extends android.support.v7.widget.AppCompatImageView i
             public void onGlobalLayout() {
                 if (getX() != 0 && getY() != 0 && getWidth() != 0 && getHeight() != 0) {
                     setShowAndDisappear();
+                    //设置完后立刻注销，不然会不断回调，浪费很多资源
                     getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
 

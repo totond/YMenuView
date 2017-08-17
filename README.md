@@ -10,7 +10,7 @@
 ### Gradle
 
 ```
-    compile 'com.yanzhikaijky:YMenuView:1.0.2'
+    compile 'com.yanzhikaijky:YMenuView:1.0.3'
 ```
 
 ### 属性
@@ -31,7 +31,8 @@
 |menuButtonBackGround      | 菜单键背景Drawable    | reference|@drawable/setting |
 |optionsBackGround      | 选项键背景Drawable    | reference|@drawable/null_drawable|
 |optionPositionCounts      | “选项”占格个数     | integer| 8|
-|optionLines      | “选项”占格行数     | integer| 1|
+|optionColumns      | “选项”占格列数     | integer| 1|
+|isShowMenu      | 一开始时是否展开菜单     | boolean| false|
 |sd_duration      | 进出动画耗时     | integer| 600|
 |sd_animMode      | 进出动画选择     | enum| FROM_BUTTON_TOP|
 
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         app:optionToMenuRightMargin="80dp"
         app:optionToMenuBottomMargin="25dp"
         app:optionPositionCounts="5"
-        app:optionLines="5"
+        app:optionColumns="5"
         app:sd_animMode="FROM_BUTTON_LEFT"
         app:menuButtonBackGround="@drawable/setting"
         app:optionsBackGround="@drawable/background_option_button" />
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         android:id="@+id/ymv"
         app:optionToMenuRightMargin="50dp"
         app:optionPositionCounts="8"
-        app:optionLines="3"
+        app:optionColumns="3"
         app:sd_animMode="FROM_RIGHT"
         app:menuButtonBackGround="@drawable/setting"
         app:optionsBackGround="@drawable/background_option_button" />
