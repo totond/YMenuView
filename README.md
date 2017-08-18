@@ -2,7 +2,7 @@
 　　欢迎 Star or Fork！有什么意见和建议可以在Issue上提出。
 
 ## 简介
-　　效果如下图，这是一个类似Path菜单的自定义View，暂时是可以设定4种菜单进出方式，目前只能在右下方展现（因为其他方向代码差不多，重复性的工作太多，暂时没空弄），然后具体原理后面会在博客上写出。
+　　效果如下图，这是一个类似Path菜单的自定义View，暂时是可以设定4种菜单进出方式，目前只能在右下方展现（因为其他方向代码差不多，重复性的工作太多，暂时没空弄），然后这里有[具体原理分析博客](http://blog.csdn.net/totond/article/details/77364137)，方便二次开发。
 ![](http://i.imgur.com/gDmX0mM.gif)
 
 ## 使用
@@ -226,3 +226,5 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
  > 炎之铠的邮箱：yanzhikai_yjk@qq.com
 
  > CSDN：http://blog.csdn.net/totond
+ 
+ > YMenuView原理分析博客：http://blog.csdn.net/totond/article/details/77364137
