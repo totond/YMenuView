@@ -6,19 +6,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.yanzhikai.ymenuview.YMenuView;
+import com.yanzhikai.ymenuview.YMenuView2;
 
-public class MainActivity extends AppCompatActivity implements YMenuView.OnOptionsClickListener{
-    private YMenuView mYMenuView;
+public class MainActivity extends AppCompatActivity implements YMenuView2.OnOptionsClickListener{
+    private YMenuView2 mYMenuView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mYMenuView = (YMenuView) findViewById(R.id.ymv);
+        mYMenuView = (YMenuView2) findViewById(R.id.ymv);
         mYMenuView.setOnOptionsClickListener(this);
         mYMenuView.setBanArray(0,2,6);
-        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
-                ,R.drawable.three,R.drawable.four);
+//        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
+//                ,R.drawable.three,R.drawable.four);
     }
 
 
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         switch (index){
             case 0:
                 makeToast("0");
-
                 break;
             case 1:
                 makeToast("1");

@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
  * Description: 这个是菜单弹出的选项按钮，在这里主要对其进行进出动画的设置。
  */
 
-public class OptionButton extends android.support.v7.widget.AppCompatImageView implements YMenuView.OnShowDisappearListener{
+public class OptionButton extends android.support.v7.widget.AppCompatImageView implements YMenuView2.OnShowDisappearListener{
     private AnimationSet showAnimation,disappearAnimation;
     public static final int FROM_BUTTON_LEFT = 0 , FROM_BUTTON_TOP = 1,FROM_RIGHT = 2,FROM_BOTTOM = 3;
     private @SD_Animation int mSD_Animation = FROM_BUTTON_LEFT;
