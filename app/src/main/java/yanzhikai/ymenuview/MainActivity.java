@@ -2,10 +2,10 @@ package yanzhikai.ymenuview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
-import com.yanzhikai.ymenuview.YMenuView;
+import com.yanzhikai.ymenuview.YMenuSettings.Circle8YMenuSetting;
+import com.yanzhikai.ymenuview.YMenuSettings.TreeYMenuSetting;
 import com.yanzhikai.ymenuview.YMenuView2;
 
 public class MainActivity extends AppCompatActivity implements YMenuView2.OnOptionsClickListener{
@@ -17,7 +17,9 @@ public class MainActivity extends AppCompatActivity implements YMenuView2.OnOpti
         setContentView(R.layout.activity_main);
         mYMenuView = (YMenuView2) findViewById(R.id.ymv);
         mYMenuView.setOnOptionsClickListener(this);
-        mYMenuView.setBanArray(0,2,6);
+//        mYMenuView.setYMenuSetting(new Circle8YMenuSetting(mYMenuView));
+        mYMenuView.setYMenuSetting(new TreeYMenuSetting(mYMenuView));
+//        mYMenuView.setBanArray(0,2,6);
 //        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
 //                ,R.drawable.three,R.drawable.four);
     }

@@ -5,13 +5,13 @@
         <attr name="optionButtonHeight" format="dimension"/>
         <attr name="menuButtonWidth" format="dimension"/>
         <attr name="menuButtonHeight" format="dimension"/>
-        <attr name="menuButtonRightMargin" format="dimension"/>
-        <attr name="menuButtonBottomMargin" format="dimension"/>
+        <attr name="menuToParentXMargin" format="dimension"/>
+        <attr name="menuToParentYMargin" format="dimension"/>
         <attr name="optionPositionCounts" format="integer"/>
-        <attr name="optionToMenuBottomMargin" format="dimension"/>
-        <attr name="optionToMenuRightMargin" format="dimension"/>
-        <attr name="optionHorizontalMargin" format="dimension"/>
-        <attr name="optionVerticalMargin" format="dimension"/>
+        <attr name="optionToParentYMargin" format="dimension"/>
+        <attr name="optionToParentXMargin" format="dimension"/>
+        <attr name="optionXMargin" format="dimension"/>
+        <attr name="optionYMargin" format="dimension"/>
         <attr name="optionColumns" format="integer"/>
         <attr name="menuButtonBackGround" format="reference"/>
         <attr name="optionsBackGround" format="reference"/>

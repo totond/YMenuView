@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -64,24 +63,24 @@ public class YMenuView extends RelativeLayout {
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.YMenuView, 0, 0);
-        mYMenuButtonWidth = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonWidth, mYMenuButtonWidth);
-        mYMenuButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonHeight, mYMenuButtonHeight);
-        mYOptionButtonWidth = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonWidth, mYOptionButtonWidth);
-        mYOptionButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonHeight, mYOptionButtonHeight);
-        mYMenuButtonRightMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonRightMargin, mYMenuButtonRightMargin);
-        mYMenuButtonBottomMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonBottomMargin, mYMenuButtonBottomMargin);
-        optionPositionCount = typedArray.getInteger(R.styleable.YMenuView_optionPositionCounts, optionPositionCount);
-        optionColumns = typedArray.getInteger(R.styleable.YMenuView_optionColumns, optionColumns);
-        mYOptionToMenuBottomMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToMenuBottomMargin, mYOptionToMenuBottomMargin);
-        mYOptionToMenuRightMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToMenuRightMargin, mYOptionToMenuRightMargin);
-        mYOptionVerticalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionVerticalMargin, mYOptionVerticalMargin);
-        mYOptionHorizontalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionHorizontalMargin, mYOptionHorizontalMargin);
-        mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, mMenuButtonBackGroundId);
-        mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround,R.drawable.null_drawable);
-        mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
-        mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration,mOptionSD_AnimationDuration);
-        isShowMenu = typedArray.getBoolean(R.styleable.YMenuView_isShowMenu,isShowMenu);
+//        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.YMenuView, 0, 0);
+//        mYMenuButtonWidth = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonWidth, mYMenuButtonWidth);
+//        mYMenuButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonHeight, mYMenuButtonHeight);
+//        mYOptionButtonWidth = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonWidth, mYOptionButtonWidth);
+//        mYOptionButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonHeight, mYOptionButtonHeight);
+//        mYMenuButtonRightMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonRightMargin, mYMenuButtonRightMargin);
+//        mYMenuButtonBottomMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonBottomMargin, mYMenuButtonBottomMargin);
+//        optionPositionCount = typedArray.getInteger(R.styleable.YMenuView_optionPositionCounts, optionPositionCount);
+//        optionColumns = typedArray.getInteger(R.styleable.YMenuView_optionColumns, optionColumns);
+//        mYOptionToMenuBottomMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToParentYMargin, mYOptionToMenuBottomMargin);
+//        mYOptionToMenuRightMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToParentXMargin, mYOptionToMenuRightMargin);
+//        mYOptionVerticalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_OptionYMargin, mYOptionVerticalMargin);
+//        mYOptionHorizontalMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_OptionXMargin, mYOptionHorizontalMargin);
+//        mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, mMenuButtonBackGroundId);
+//        mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround,R.drawable.null_drawable);
+//        mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
+//        mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration,mOptionSD_AnimationDuration);
+//        isShowMenu = typedArray.getBoolean(R.styleable.YMenuView_isShowMenu,isShowMenu);
     }
 
     private void init(Context context) {

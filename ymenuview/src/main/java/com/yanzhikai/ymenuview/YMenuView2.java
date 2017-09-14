@@ -13,6 +13,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import com.yanzhikai.ymenuview.YMenuSettings.DefaultYMenuSetting;
+import com.yanzhikai.ymenuview.YMenuSettings.YMenuSetting;
+
 import java.util.ArrayList;
 
 /**
@@ -80,14 +83,14 @@ public class YMenuView2 extends RelativeLayout {
         mYMenuButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonHeight, mYMenuButtonHeight);
         mYOptionButtonWidth = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonWidth, mYOptionButtonWidth);
         mYOptionButtonHeight = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionButtonHeight, mYOptionButtonHeight);
-        mYMenuToParentXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonRightMargin, mYMenuToParentXMargin);
-        mYMenuToParentYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuButtonBottomMargin, mYMenuToParentYMargin);
+        mYMenuToParentXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuToParentXMargin, mYMenuToParentXMargin);
+        mYMenuToParentYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_menuToParentYMargin, mYMenuToParentYMargin);
         optionPositionCount = typedArray.getInteger(R.styleable.YMenuView_optionPositionCounts, optionPositionCount);
         optionColumns = typedArray.getInteger(R.styleable.YMenuView_optionColumns, optionColumns);
-        mYOptionToParentYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToMenuBottomMargin, mYOptionToParentYMargin);
-        mYOptionToParentXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToMenuRightMargin, mYOptionToParentXMargin);
-        mYOptionYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionVerticalMargin, mYOptionYMargin);
-        mYOptionXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionHorizontalMargin, mYOptionXMargin);
+        mYOptionToParentYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToParentYMargin, mYOptionToParentYMargin);
+        mYOptionToParentXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionToParentXMargin, mYOptionToParentXMargin);
+        mYOptionYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionYMargin, mYOptionYMargin);
+        mYOptionXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionXMargin, mYOptionXMargin);
         mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, mMenuButtonBackGroundId);
         mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround,R.drawable.null_drawable);
         mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
@@ -189,6 +192,8 @@ public class YMenuView2 extends RelativeLayout {
 
     private void setMenuButton() {
         mYMenuButton = new Button(mContext);
+        //生成ID
+        mYMenuButton.setId(generateViewId());
 //        setMenuPosition(mYMenuButton);
         mSetting.setMenuPosition(mYMenuButton);
         //设置MenuButton的大小位置
@@ -197,8 +202,7 @@ public class YMenuView2 extends RelativeLayout {
 //        layoutParams.bottomMargin = mYMenuToParentYMargin;
 //        layoutParams.addRule(ALIGN_PARENT_RIGHT);
 //        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
-//        //生成ID
-//        mYMenuButton.setId(generateViewId());
+
 //
 //        mYMenuButton.setLayoutParams(layoutParams);
         //设置打开关闭事件
@@ -244,7 +248,7 @@ public class YMenuView2 extends RelativeLayout {
 //                }
 //            }
             if (!banList.get(i)) {
-                OptionButton2 optionButton = new OptionButton2(mContext,mSetting);
+                OptionButton2 optionButton = new OptionButton2(mContext,mSetting,i);
 //                setOptionPosition(optionButton, mYMenuButton, i);
                 mSetting.setOptionPosition(optionButton, mYMenuButton, i);
                 addView(optionButton);

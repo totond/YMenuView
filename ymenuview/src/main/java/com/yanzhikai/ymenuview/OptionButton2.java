@@ -3,12 +3,10 @@ package com.yanzhikai.ymenuview;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.TranslateAnimation;
+
+import com.yanzhikai.ymenuview.YMenuSettings.YMenuSetting;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -23,6 +21,7 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
     public static final int FROM_BUTTON_LEFT = 0 , FROM_BUTTON_TOP = 1,FROM_RIGHT = 2,FROM_BOTTOM = 3;
     private @SD_Animation int mSD_Animation = FROM_BUTTON_LEFT;
     private int mDuration = 600;
+    private int mIndex;
 
     private YMenuSetting mSetting;
 
@@ -30,9 +29,10 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
     @Retention(RetentionPolicy.SOURCE)
     public  @interface SD_Animation {}
 
-    public OptionButton2(Context context,YMenuSetting yMenuSetting) {
+    public OptionButton2(Context context,YMenuSetting yMenuSetting,int index) {
         super(context);
         mSetting = yMenuSetting;
+        mIndex = index;
         init();
     }
 
@@ -126,7 +126,7 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
 //
 //        showAnimation.addAnimation(translateAnimation);
 //        showAnimation.addAnimation(alphaAnimation);
-        showAnimation = mSetting.setOptionShowAnimation(this,duration);
+        showAnimation = mSetting.setOptionShowAnimation(this,duration,mIndex);
     }
 
     public void setDisappearAnimation(int duration) {
@@ -163,7 +163,7 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
 //
 //        disappearAnimation.addAnimation(translateAnimation);
 //        disappearAnimation.addAnimation(alphaAnimation);
-        disappearAnimation = mSetting.setOptionDisappearAnimation(this,duration);
+        disappearAnimation = mSetting.setOptionDisappearAnimation(this,duration,mIndex);
         disappearAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -184,6 +184,14 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
 
     public int getmSD_Animation() {
         return mSD_Animation;
+    }
+
+    public Animation getShowAnimation() {
+        return showAnimation;
+    }
+
+    public Animation getDisappearAnimation() {
+        return disappearAnimation;
     }
 
     @Override

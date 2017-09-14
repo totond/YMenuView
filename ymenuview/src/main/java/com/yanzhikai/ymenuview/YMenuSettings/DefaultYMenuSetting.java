@@ -1,4 +1,4 @@
-package com.yanzhikai.ymenuview;
+package com.yanzhikai.ymenuview.YMenuSettings;
 
 import android.util.Log;
 import android.view.View;
@@ -6,10 +6,13 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
-import android.widget.RelativeLayout;
 
-import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;
-import static android.widget.RelativeLayout.ALIGN_PARENT_RIGHT;
+import com.yanzhikai.ymenuview.OptionButton2;
+import com.yanzhikai.ymenuview.PositionBuilders.MenuPositionBuilder;
+import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
+import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
+import com.yanzhikai.ymenuview.YMenuView2;
+
 import static com.yanzhikai.ymenuview.OptionButton2.FROM_BOTTOM;
 import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_LEFT;
 import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_TOP;
@@ -26,45 +29,72 @@ public class DefaultYMenuSetting extends YMenuSetting {
     }
 
     @Override
+    public void setMenuPosition(View menuButton) {
+        new MenuPositionBuilder(menuButton)
+                .setWidthAndHeight(yMenuView.getYMenuButtonWidth(), yMenuView.getYMenuButtonHeight())
+                .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
+                .setIsXYCenter(true,false)
+                .setXYMargin(yMenuView.getYMenuToParentXMargin(),yMenuView.getYMenuToParentYMargin())
+                .finish();
+
+
+
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(yMenuView.getYMenuButtonWidth(),
+//                yMenuView.getYMenuButtonHeight());
+//        layoutParams.setMarginEnd(yMenuView.getYMenuToParentXMargin());
+//        layoutParams.bottomMargin = yMenuView.getYMenuToParentYMargin();
+//        layoutParams.addRule(ALIGN_PARENT_RIGHT);
+//        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
+//        menuButton.setLayoutParams(layoutParams);
+    }
+
+    @Override
     public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index) {
         Log.d("ymenuview", "setOptionPosition: " + menuButton.getX());
+
         //设置动画模式和时长
         optionButton.setSD_Animation(yMenuView.getOptionSD_AnimationMode());
         optionButton.setDuration(yMenuView.getOptionSD_AnimationDuration());
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                yMenuView.getYOptionButtonWidth()
-                , yMenuView.getYOptionButtonHeight());
-
         //计算OptionButton的位置
         int position = index % yMenuView.getOptionColumns();
 
-        layoutParams.rightMargin = yMenuView.getYOptionToParentXMargin()
-                + yMenuView.getYOptionXMargin() * position
-                + yMenuView.getYOptionButtonWidth() * position;
+        OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
+        OptionPositionBuilder
+                .isAlignMenuButton(false)
+                .setWidthAndHeight(yMenuView.getYOptionButtonWidth(), yMenuView.getYOptionButtonHeight())
+                .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
+                .setXYMargin(
+                        yMenuView.getYOptionToParentXMargin()
+                                + yMenuView.getYOptionXMargin() * position
+                                + yMenuView.getYOptionButtonWidth() * position,
+                        yMenuView.getYOptionToParentYMargin()
+                                + (yMenuView.getYOptionButtonHeight() + yMenuView.getYOptionYMargin())
+                                * (index / yMenuView.getOptionColumns()))
+                .finish();
 
-        layoutParams.bottomMargin = yMenuView.getYOptionToParentYMargin()
-                + (yMenuView.getYOptionButtonHeight() + yMenuView.getYOptionYMargin())
-                * (index / yMenuView.getOptionColumns());
-        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
-        layoutParams.addRule(ALIGN_PARENT_RIGHT);
 
-        optionButton.setLayoutParams(layoutParams);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//                yMenuView.getYOptionButtonWidth()
+//                , yMenuView.getYOptionButtonHeight());
+//
+//        layoutParams.rightMargin = yMenuView.getYOptionToParentXMargin()
+//                + yMenuView.getYOptionXMargin() * position
+//                + yMenuView.getYOptionButtonWidth() * position;
+//
+//        layoutParams.bottomMargin = yMenuView.getYOptionToParentYMargin()
+//                + (yMenuView.getYOptionButtonHeight() + yMenuView.getYOptionYMargin())
+//                * (index / yMenuView.getOptionColumns());
+//        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
+//        layoutParams.addRule(ALIGN_PARENT_RIGHT);
+//
+//        optionButton.setLayoutParams(layoutParams);
     }
 
-    @Override
-    public void setMenuPosition(View menuButton) {
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(yMenuView.getYMenuButtonWidth(),
-                yMenuView.getYMenuButtonHeight());
-        layoutParams.setMarginEnd(yMenuView.getYMenuToParentXMargin());
-        layoutParams.bottomMargin = yMenuView.getYMenuToParentYMargin();
-        layoutParams.addRule(ALIGN_PARENT_RIGHT);
-        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
-        menuButton.setLayoutParams(layoutParams);
-    }
+
 
     @Override
-    public Animation setOptionShowAnimation(OptionButton2 optionButton,int duration) {
+    public Animation setOptionShowAnimation(OptionButton2 optionButton,int duration,int index) {
         AnimationSet animationSet = new AnimationSet(true);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
         alphaAnimation.setDuration(duration);
@@ -100,7 +130,7 @@ public class DefaultYMenuSetting extends YMenuSetting {
     }
 
     @Override
-    public Animation setOptionDisappearAnimation(OptionButton2 optionButton, int duration) {
+    public Animation setOptionDisappearAnimation(OptionButton2 optionButton, int duration,int index) {
         AnimationSet animationSet = new AnimationSet(true);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
         alphaAnimation.setDuration(duration);
