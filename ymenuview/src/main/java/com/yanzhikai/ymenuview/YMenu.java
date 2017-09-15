@@ -2,32 +2,17 @@ package com.yanzhikai.ymenuview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-import com.yanzhikai.ymenuview.PositionBuilders.MenuPositionBuilder;
-import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
-import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
-import com.yanzhikai.ymenuview.YMenuSettings.DefaultYMenuSetting;
-import com.yanzhikai.ymenuview.YMenuSettings.YMenuSetting;
-
 import java.util.ArrayList;
-
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BOTTOM;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_LEFT;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_TOP;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_RIGHT;
 
 /**
  * @author Yanzhikai
@@ -69,7 +54,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     private int mOptionSD_AnimationDuration = 600;
     private OnOptionsClickListener mOnOptionsClickListener;
 
-    private YMenuSetting mSetting;
 
     public YMenu(Context context) {
         super(context);
@@ -245,7 +229,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
 //                }
 //            }
             if (!banList.get(i)) {
-                OptionButton2 optionButton = new OptionButton2(mContext,mSetting,i);
+                OptionButton2 optionButton = new OptionButton2(mContext,i);
                 setOptionPosition(optionButton, mYMenuButton, i);
                 Log.d(TAG, "setOptionButtons: ");
                 optionButton.setOptionPrepareListener(this);
@@ -564,9 +548,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
         this.mOptionsBackGroundId = optionsBackGroundId;
     }
 
-    public void setYMenuSetting(YMenuSetting setting){
-        mSetting = setting;
-    }
 
 
     //用于让用户在外部实现点击事件的接口，index可以区分OptionButton

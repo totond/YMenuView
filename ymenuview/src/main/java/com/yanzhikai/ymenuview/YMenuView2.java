@@ -45,7 +45,7 @@ public class YMenuView2 extends YMenu implements OptionButton2.OptionPrepareList
         new MenuPositionBuilder(menuButton)
                 .setWidthAndHeight(getYMenuButtonWidth(), getYMenuButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
-                .setIsXYCenter(true,false)
+                .setIsXYCenter(false,false)
                 .setXYMargin(getYMenuToParentXMargin(),getYMenuToParentYMargin())
                 .finish();
 

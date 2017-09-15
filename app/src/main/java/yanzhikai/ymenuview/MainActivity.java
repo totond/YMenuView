@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.yanzhikai.ymenuview.YMenu;
-import com.yanzhikai.ymenuview.YMenuSettings.Circle8YMenuSetting;
-import com.yanzhikai.ymenuview.YMenuSettings.TreeYMenuSetting;
-import com.yanzhikai.ymenuview.YMenuView2;
 
 public class MainActivity extends AppCompatActivity implements YMenu.OnOptionsClickListener{
     private YMenu mYMenuView;
@@ -21,8 +18,9 @@ public class MainActivity extends AppCompatActivity implements YMenu.OnOptionsCl
 //        mYMenuView.setYMenuSetting(new Circle8YMenuSetting(mYMenuView));
 //        mYMenuView.setYMenuSetting(new TreeYMenuSetting(mYMenuView));
 //        mYMenuView.setBanArray(0,2,4,6);
-//        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
-//                ,R.drawable.three,R.drawable.four);
+        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
+                ,R.drawable.three,R.drawable.four,R.drawable.five,R.drawable.six
+                ,R.drawable.seven,R.drawable.eight);
     }
 
 

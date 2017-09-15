@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 
-import com.yanzhikai.ymenuview.YMenuSettings.YMenuSetting;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -24,15 +22,13 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
     private int mIndex;
     private OptionPrepareListener mOptionPrepareListener;
 
-    private YMenuSetting mSetting;
 
     @IntDef({FROM_BUTTON_LEFT, FROM_BUTTON_TOP,FROM_RIGHT,FROM_BOTTOM})
     @Retention(RetentionPolicy.SOURCE)
     public  @interface SD_Animation {}
 
-    public OptionButton2(Context context,YMenuSetting yMenuSetting,int index) {
+    public OptionButton2(Context context,int index) {
         super(context);
-        mSetting = yMenuSetting;
         mIndex = index;
         init();
     }
@@ -122,96 +118,8 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
         });
     }
 
-    public void setShowAnimation(int duration) {
-        //获取父ViewGroup的对象，用于获取宽高参数
-//        YMenuView2 parent = (YMenuView2) getParent();
-//        showAnimation = new AnimationSet(true);
-//        AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
-//        alphaAnimation.setDuration(duration);
-//        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,0);
-//        switch (mSD_Animation){
-//            //从MenuButton的左边移入
-//            case FROM_BUTTON_LEFT:
-//                translateAnimation= new TranslateAnimation(parent.getYMenuButton().getX() - getRight(),0
-//                        ,0,0);
-//                translateAnimation.setDuration(duration);
-//                break;
-//            case FROM_RIGHT:
-//                //从右边缘移入
-//                translateAnimation= new TranslateAnimation((parent.getWidth() - getX()),0,0,0);
-//                translateAnimation.setDuration(duration);
-////                showAnimation.setInterpolator(new OvershootInterpolator(1.3f));
-//                break;
-//            case FROM_BUTTON_TOP:
-//                //从MenuButton的上边缘移入
-//                translateAnimation= new TranslateAnimation(0,0,
-//                        parent.getYMenuButton().getY() - getBottom(),0);
-//                translateAnimation.setDuration(duration);
-//                break;
-//            case FROM_BOTTOM:
-//                //从下边缘移入
-//                translateAnimation = new TranslateAnimation(0,0,parent.getHeight() - getY(),0);
-//                translateAnimation.setDuration(duration);
-//        }
-//
-//        showAnimation.addAnimation(translateAnimation);
-//        showAnimation.addAnimation(alphaAnimation);
-        showAnimation = mSetting.setOptionShowAnimation(this,duration,mIndex);
 
-    }
 
-    public void setDisappearAnimation(int duration) {
-        //获取父ViewGroup的对象，用于获取宽高参数
-//        YMenuView2 parent = (YMenuView2) getParent();
-//        disappearAnimation = new AnimationSet(true);
-//        AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
-//        alphaAnimation.setDuration(duration);
-//        TranslateAnimation translateAnimation = new TranslateAnimation(0,0,0,0);
-//        switch (mSD_Animation) {
-//            case FROM_BUTTON_LEFT:
-//                //从MenuButton的左边移入
-//                translateAnimation= new TranslateAnimation(0,parent.getYMenuButton().getX() - getRight()
-//                        ,0,0);
-//                translateAnimation.setDuration(duration);
-//                break;
-//            case FROM_RIGHT:
-//                //从右边缘移出
-//                translateAnimation = new TranslateAnimation(0, (parent.getWidth()- getX()),
-//                        0, 0);
-//                translateAnimation.setDuration(duration);
-//                break;
-//            case FROM_BUTTON_TOP:
-//                //从MenuButton的上边移入
-//                translateAnimation = new TranslateAnimation(0, 0,
-//                        0, parent.getYMenuButton().getY() - getBottom());
-//                translateAnimation.setDuration(duration);
-//                break;
-//            case FROM_BOTTOM:
-//                //从下边缘移出
-//                translateAnimation = new TranslateAnimation(0,0,0,parent.getHeight() - getY());
-//                translateAnimation.setDuration(duration);
-//        }
-//
-//        disappearAnimation.addAnimation(translateAnimation);
-//        disappearAnimation.addAnimation(alphaAnimation);
-        disappearAnimation = mSetting.setOptionDisappearAnimation(this,duration,mIndex);
-        disappearAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                setVisibility(GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    }
 
     public void setOptionPrepareListener(OptionPrepareListener optionPrepareListener) {
         this.mOptionPrepareListener = optionPrepareListener;

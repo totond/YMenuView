@@ -52,27 +52,40 @@
         <!--app:optionsBackGround="@drawable/background_option_button" />-->
 
     <!--Circle8-->
-    <com.yanzhikai.ymenuview.Circle8YMenuView
-        android:id="@+id/ymv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:menuButtonBackGround="@drawable/setting"
-        app:optionXMargin="60dp"
-        app:optionYMargin="60dp"
-        app:optionColumns="1"
-        app:optionPositionCounts="8"
-        app:optionsBackGround="@drawable/background_option_button" />
-
-    <!--Tree-->
-    <!--<com.yanzhikai.ymenuview.YMenuView2-->
+    <!--<com.yanzhikai.ymenuview.Circle8YMenuView-->
         <!--android:id="@+id/ymv"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
         <!--app:menuButtonBackGround="@drawable/setting"-->
-        <!--app:optionXMargin="40dp"-->
-        <!--app:optionYMargin="40dp"-->
-        <!--app:menuToParentYMargin="60dp"-->
+        <!--app:optionXMargin="60dp"-->
+        <!--app:optionYMargin="60dp"-->
         <!--app:optionColumns="1"-->
+        <!--app:optionPositionCounts="8"-->
+        <!--app:optionsBackGround="@drawable/background_option_button" />-->
+
+    <!--Tree-->
+    <com.yanzhikai.ymenuview.TreeYMenuView
+        android:id="@+id/ymv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:menuButtonBackGround="@drawable/setting"
+        app:optionXMargin="40dp"
+        app:optionYMargin="40dp"
+        app:menuToParentYMargin="60dp"
+        app:sd_duration="400"
+        app:optionColumns="1"
+        app:optionPositionCounts="9"
+        app:optionsBackGround="@drawable/background_option_button" />
+
+    <!--Square-->
+    <!--<com.yanzhikai.ymenuview.SquareYMenuView-->
+        <!--android:id="@+id/ymv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:menuButtonBackGround="@drawable/setting"-->
+        <!--app:optionXMargin="10dp"-->
+        <!--app:optionYMargin="10dp"-->
+        <!--app:sd_duration="400"-->
         <!--app:optionPositionCounts="8"-->
         <!--app:optionsBackGround="@drawable/background_option_button" />-->
 
