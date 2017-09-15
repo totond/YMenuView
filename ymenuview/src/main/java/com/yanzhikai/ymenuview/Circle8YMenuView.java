@@ -47,7 +47,7 @@ public class Circle8YMenuView extends YMenu{
     public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index) {
         if (index >= 8){
             try {
-                throw new Exception("OptionPosition最大数量为8，超过将会发生错误");
+                throw new Exception("Circle8YMenuView的OptionPosition最大数量为8，超过将会发生错误");
             } catch (Exception e) {
                 e.printStackTrace();
             }

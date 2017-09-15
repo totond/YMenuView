@@ -44,6 +44,13 @@ public class TreeYMenuView extends YMenu {
 
     @Override
     public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index) {
+        if (index > 8){
+            try {
+                throw new Exception("TreeYMenuView的OptionPosition最大数量为8，超过将会发生错误");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         float x = xTimes[index];
         float y = yTimes[index];
         OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);

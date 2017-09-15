@@ -48,7 +48,7 @@ public class SquareYMenuView extends YMenu {
     public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index) {
         if (index > 7){
             try {
-                throw new Exception("SquareYMenuView的OptionPosition不能大于8");
+                throw new Exception("SquareYMenuView的OptionPosition最大数量为8，超过将会发生错误");
             } catch (Exception e) {
                 e.printStackTrace();
             }
