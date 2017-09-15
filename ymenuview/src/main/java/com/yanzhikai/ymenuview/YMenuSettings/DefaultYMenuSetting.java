@@ -74,21 +74,7 @@ public class DefaultYMenuSetting extends YMenuSetting {
                 .finish();
 
 
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-//                yMenuView.getYOptionButtonWidth()
-//                , yMenuView.getYOptionButtonHeight());
-//
-//        layoutParams.rightMargin = yMenuView.getYOptionToParentXMargin()
-//                + yMenuView.getYOptionXMargin() * position
-//                + yMenuView.getYOptionButtonWidth() * position;
-//
-//        layoutParams.bottomMargin = yMenuView.getYOptionToParentYMargin()
-//                + (yMenuView.getYOptionButtonHeight() + yMenuView.getYOptionYMargin())
-//                * (index / yMenuView.getOptionColumns());
-//        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
-//        layoutParams.addRule(ALIGN_PARENT_RIGHT);
-//
-//        optionButton.setLayoutParams(layoutParams);
+
     }
 
 

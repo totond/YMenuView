@@ -4,22 +4,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.yanzhikai.ymenuview.YMenu;
 import com.yanzhikai.ymenuview.YMenuSettings.Circle8YMenuSetting;
 import com.yanzhikai.ymenuview.YMenuSettings.TreeYMenuSetting;
 import com.yanzhikai.ymenuview.YMenuView2;
 
-public class MainActivity extends AppCompatActivity implements YMenuView2.OnOptionsClickListener{
-    private YMenuView2 mYMenuView;
+public class MainActivity extends AppCompatActivity implements YMenu.OnOptionsClickListener{
+    private YMenu mYMenuView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mYMenuView = (YMenuView2) findViewById(R.id.ymv);
+        mYMenuView = (YMenu) findViewById(R.id.ymv);
         mYMenuView.setOnOptionsClickListener(this);
 //        mYMenuView.setYMenuSetting(new Circle8YMenuSetting(mYMenuView));
-        mYMenuView.setYMenuSetting(new TreeYMenuSetting(mYMenuView));
-//        mYMenuView.setBanArray(0,2,6);
+//        mYMenuView.setYMenuSetting(new TreeYMenuSetting(mYMenuView));
+//        mYMenuView.setBanArray(0,2,4,6);
 //        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
 //                ,R.drawable.three,R.drawable.four);
     }
@@ -46,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements YMenuView2.OnOpti
             case 5:
                 makeToast("5");
                 break;
+            case 6:
+                makeToast("6");
+                break;
+            case 7:
+                makeToast("7");
+                break;
+            case 8:
+                makeToast("8");
+                break;
+
         }
     }
 

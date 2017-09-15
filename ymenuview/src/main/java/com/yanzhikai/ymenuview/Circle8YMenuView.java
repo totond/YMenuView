@@ -1,5 +1,7 @@
-package com.yanzhikai.ymenuview.YMenuSettings;
+package com.yanzhikai.ymenuview;
 
+import android.content.Context;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -7,32 +9,37 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 
-import com.yanzhikai.ymenuview.OptionButton2;
 import com.yanzhikai.ymenuview.PositionBuilders.MenuPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
-import com.yanzhikai.ymenuview.YAnimationUtils;
-import com.yanzhikai.ymenuview.YMenuView2;
 
 /**
- * Created by yany on 2017/9/13.
+ * Created by yany on 2017/9/15.
  */
 
-public class Circle8YMenuSetting extends YMenuSetting {
+public class Circle8YMenuView extends YMenu{
     //8个Option位置的x、y乘积
     private float[] xyTimes = {0,0.707f,1,0.707f,0,-0.707f,-1,-0.707f};
 
-    public Circle8YMenuSetting(YMenuView2 yMenuView) {
-        super(yMenuView);
+    public Circle8YMenuView(Context context) {
+        super(context);
+    }
+
+    public Circle8YMenuView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public Circle8YMenuView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
     @Override
     public void setMenuPosition(View menuButton) {
         new MenuPositionBuilder(menuButton)
-                .setWidthAndHeight(yMenuView.getYMenuButtonWidth(), yMenuView.getYMenuButtonHeight())
+                .setWidthAndHeight(getYMenuButtonWidth(),getYMenuButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
                 .setIsXYCenter(true,true)
-                .setXYMargin(yMenuView.getYMenuToParentXMargin(),yMenuView.getYMenuToParentYMargin())
+                .setXYMargin(getYMenuToParentXMargin(),getYMenuToParentYMargin())
                 .finish();
     }
 
@@ -48,8 +55,8 @@ public class Circle8YMenuSetting extends YMenuSetting {
         //计算OptionButton的位置
         int centerX = menuButton.getLeft() + menuButton.getWidth()/2;
         int centerY = menuButton.getTop() + menuButton.getHeight()/2;
-        int halfOptionWidth = yMenuView.getYOptionButtonWidth()/2;
-        int halfOptionHeight = yMenuView.getYOptionButtonHeight()/2;
+        int halfOptionWidth = getYOptionButtonWidth()/2;
+        int halfOptionHeight = getYOptionButtonHeight()/2;
         float x = xyTimes[index % 8];
         float y = xyTimes[(index + 6) % 8];
 
@@ -58,50 +65,49 @@ public class Circle8YMenuSetting extends YMenuSetting {
         OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
         OptionPositionBuilder
                 .isAlignMenuButton(false)
-                .setWidthAndHeight(yMenuView.getYOptionButtonWidth(), yMenuView.getYOptionButtonHeight())
+                .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
                 .setXYMargin(
-                        (int)(centerX + x * yMenuView.getYOptionXMargin() - halfOptionWidth)
-                        ,(int)(centerY + y * yMenuView.getYOptionYMargin() - halfOptionHeight)
-                        )
+                        (int)(centerX + x * getYOptionXMargin() - halfOptionWidth)
+                        ,(int)(centerY + y * getYOptionYMargin() - halfOptionHeight)
+                )
                 .finish();
     }
 
-
-
-
-
     @Override
-    public Animation setOptionShowAnimation(OptionButton2 optionButton, int duration,int index) {
+    public Animation createOptionShowAnimation(OptionButton2 optionButton, int index) {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateAnimation= new TranslateAnimation(
-                yMenuView.getYMenuButton().getX() - optionButton.getX()
+                getYMenuButton().getX() - optionButton.getX()
                 ,0
-                ,yMenuView.getYMenuButton().getY() - optionButton.getY()
+                ,getYMenuButton().getY() - optionButton.getY()
                 ,0);
-        translateAnimation.setDuration(duration);
+        translateAnimation.setDuration(getOptionSD_AnimationDuration());
         AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
-        alphaAnimation.setDuration(duration);
+        alphaAnimation.setDuration(getOptionSD_AnimationDuration());
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(translateAnimation);
+        animationSet.setStartOffset(60*index);
         return animationSet;
     }
 
     @Override
-    public Animation setOptionDisappearAnimation(OptionButton2 optionButton, int duration,int index) {
+    public Animation createOptionDisappearAnimation(OptionButton2 optionButton, int index) {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateAnimation= new TranslateAnimation(
                 0
-                ,yMenuView.getYMenuButton().getX() - optionButton.getX()
+                ,getYMenuButton().getX() - optionButton.getX()
                 ,0
-                ,yMenuView.getYMenuButton().getY() - optionButton.getY()
-                );
-        translateAnimation.setDuration(duration);
+                ,getYMenuButton().getY() - optionButton.getY()
+        );
+        translateAnimation.setDuration(getOptionSD_AnimationDuration());
         AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
-        alphaAnimation.setDuration(duration);
+        alphaAnimation.setDuration(getOptionSD_AnimationDuration());
 //        animationSet.addAnimation(YAnimationUtils.reverseAlphaAnimation(alphaAnimation));
         animationSet.addAnimation(translateAnimation);
+        animationSet.addAnimation(alphaAnimation);
 //        return YAnimationUtils.reverseAnimation(optionButton.getShowAnimation());
+        animationSet.setStartOffset(60*(getOptionPositionCount() - index));
         return animationSet;
     }
 }
