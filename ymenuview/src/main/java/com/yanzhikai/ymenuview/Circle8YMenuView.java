@@ -14,7 +14,7 @@ import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
 
 /**
- * Created by yany on 2017/9/15.
+ * OptionButton围绕着MenuButton的布局，Option最大数量为8个
  */
 
 public class Circle8YMenuView extends YMenu{

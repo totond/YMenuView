@@ -16,7 +16,7 @@ import static android.widget.RelativeLayout.LEFT_OF;
 import static android.widget.RelativeLayout.RIGHT_OF;
 
 /**
- * Created by yany on 2017/9/13.
+ * description：用于建立MenuButton和OptionButton位置信息的Build抽象类
  */
 
 public class MenuPositionBuilder extends PositionBuilder {

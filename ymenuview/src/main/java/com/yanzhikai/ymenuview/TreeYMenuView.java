@@ -13,7 +13,7 @@ import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
 
 /**
- * Created by yany on 2017/9/15.
+ * OptionButton分布成一个分叉树的布局，Option最大数量为9个
  */
 
 public class TreeYMenuView extends YMenu {
