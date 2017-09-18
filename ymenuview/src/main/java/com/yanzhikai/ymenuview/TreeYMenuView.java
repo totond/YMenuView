@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import com.yanzhikai.ymenuview.PositionBuilders.MenuPositionBuilder;
@@ -89,7 +90,7 @@ public class TreeYMenuView extends YMenu {
         alphaAnimation.setDuration(getOptionSD_AnimationDuration());
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(translateAnimation);
-
+        animationSet.setInterpolator(new LinearInterpolator());
         return animationSet;
     }
 

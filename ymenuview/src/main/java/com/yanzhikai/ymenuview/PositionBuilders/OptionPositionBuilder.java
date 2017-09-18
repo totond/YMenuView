@@ -4,8 +4,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.yanzhikai.ymenuview.OptionButton2;
-import com.yanzhikai.ymenuview.YMenuView;
-import com.yanzhikai.ymenuview.YMenuView2;
 
 import static android.widget.RelativeLayout.ABOVE;
 import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;

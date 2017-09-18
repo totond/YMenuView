@@ -45,11 +45,16 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     private int mYOptionYMargin = 15, mYOptionXMargin = 15;
     //第一个OptionButton的X方向边距和Y方向边距（距离父ViewGroup边界）
     private int mYOptionToParentYMargin = 160, mYOptionToParentXMargin = 50;
+
     private @DrawableRes int mMenuButtonBackGroundId = R.drawable.setting;
     private @DrawableRes int mOptionsBackGroundId = R.drawable.null_drawable;
+
+    //菜单是否正在打开
     private boolean isShowMenu = false;
+    //菜单打开关闭动画
     private Animation menuOpenAnimation, menuCloseAnimation;
     private Animation.AnimationListener animationListener;
+
     private int mOptionSD_AnimationMode = OptionButton2.FROM_BUTTON_TOP;
     private int mOptionSD_AnimationDuration = 600;
     private OnOptionsClickListener mOnOptionsClickListener;
@@ -118,30 +123,10 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
                     //设置完后立刻注销，不然会不断回调，浪费很多资源
                     getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
-
             }
         });
-
-
     }
 
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        Log.d(TAG, "onMeasure: ");
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//    }
-//
-//    @Override
-//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-//        Log.d(TAG, "onLayout: ");
-//        super.onLayout(changed, l, t, r, b);
-//    }
-//
-//    @Override
-//    protected void onDraw(Canvas canvas) {
-//        Log.d(TAG, "onDraw: ");
-//        super.onDraw(canvas);
-//    }
 
     //初始化MenuButton的点击动画
     private void initMenuAnim() {
@@ -171,6 +156,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     }
 
 
+    //初始化BanList
     private void initBan() throws Exception {
         banList = new ArrayList<>(optionPositionCount);
         for (int i = 0; i < optionPositionCount; i++){
@@ -183,14 +169,16 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
             }else {
                 throw new Exception("Ban数组设置不合理，含有负数或者超出范围");
             }
-            Log.d(TAG, "initBan: size " + banList.size());
+//            Log.d(TAG, "initBan: size " + banList.size());
         }
     }
+
 
     private void setMenuButton() {
         mYMenuButton = new Button(mContext);
         //生成ID
         mYMenuButton.setId(generateViewId());
+        //调用抽象方法来确定MenuButton的位置
         setMenuPosition(mYMenuButton);
 //        mSetting.setMenuPosition(mYMenuButton);
 
@@ -557,11 +545,4 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
         public void onOptionsClick(int index);
     }
 
-//    protected interface OnShowDisappearListener {
-//        public void onShow();
-//
-//        public void onClose();
-//
-//        public void onDisappear();
-//    }
 }
