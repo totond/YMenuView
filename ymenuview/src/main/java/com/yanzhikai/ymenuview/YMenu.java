@@ -91,6 +91,8 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
         mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
         mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration,mOptionSD_AnimationDuration);
         isShowMenu = typedArray.getBoolean(R.styleable.YMenuView_isShowMenu,isShowMenu);
+
+        typedArray.recycle();
     }
 
     private void init(Context context) {
