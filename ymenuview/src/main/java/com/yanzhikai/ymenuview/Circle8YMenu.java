@@ -17,22 +17,23 @@ import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
  * OptionButton围绕着MenuButton的布局，Option最大数量为8个
  */
 
-public class Circle8YMenuView extends YMenu{
-    //8个Option位置的x、y乘积
+public class Circle8YMenu extends YMenu{
+    //8个Option位置的x、y乘积因子
     private float[] xyTimes = {0,0.707f,1,0.707f,0,-0.707f,-1,-0.707f};
 
-    public Circle8YMenuView(Context context) {
+    public Circle8YMenu(Context context) {
         super(context);
     }
 
-    public Circle8YMenuView(Context context, AttributeSet attrs) {
+    public Circle8YMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public Circle8YMenuView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Circle8YMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    //设置MenuButton的位置，这里设置成位于ViewGroup中心
     @Override
     public void setMenuPosition(View menuButton) {
         new MenuPositionBuilder(menuButton)
@@ -43,8 +44,9 @@ public class Circle8YMenuView extends YMenu{
                 .finish();
     }
 
+    //设置OptionButton的位置，这里是设置成圆形围绕着MenuButton
     @Override
-    public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index) {
+    public void setOptionPosition(OptionButton optionButton, View menuButton, int index) {
         if (index >= 8){
             try {
                 throw new Exception("Circle8YMenuView的OptionPosition最大数量为8，超过将会发生错误");
@@ -57,6 +59,7 @@ public class Circle8YMenuView extends YMenu{
         int centerY = menuButton.getTop() + menuButton.getHeight()/2;
         int halfOptionWidth = getYOptionButtonWidth()/2;
         int halfOptionHeight = getYOptionButtonHeight()/2;
+        //利用乘积因子来决定不同位置
         float x = xyTimes[index % 8];
         float y = xyTimes[(index + 6) % 8];
 
@@ -64,7 +67,7 @@ public class Circle8YMenuView extends YMenu{
 
         OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
         OptionPositionBuilder
-                .isAlignMenuButton(false)
+                .isAlignMenuButton(false,false)
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
                 .setXYMargin(
@@ -74,8 +77,9 @@ public class Circle8YMenuView extends YMenu{
                 .finish();
     }
 
+    //设置OptionButton的显示动画
     @Override
-    public Animation createOptionShowAnimation(OptionButton2 optionButton, int index) {
+    public Animation createOptionShowAnimation(OptionButton optionButton, int index) {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateAnimation= new TranslateAnimation(
                 getYMenuButton().getX() - optionButton.getX()
@@ -87,12 +91,16 @@ public class Circle8YMenuView extends YMenu{
         alphaAnimation.setDuration(getOptionSD_AnimationDuration());
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(translateAnimation);
-        animationSet.setStartOffset(60*index);
+        //为不同的Option设置延时
+        if (index % 2 == 1) {
+            animationSet.setStartOffset(getOptionSD_AnimationDuration()/2);
+        }
         return animationSet;
     }
 
+    //设置OptionButton的消失动画
     @Override
-    public Animation createOptionDisappearAnimation(OptionButton2 optionButton, int index) {
+    public Animation createOptionDisappearAnimation(OptionButton optionButton, int index) {
         AnimationSet animationSet = new AnimationSet(true);
         TranslateAnimation translateAnimation= new TranslateAnimation(
                 0
@@ -103,11 +111,12 @@ public class Circle8YMenuView extends YMenu{
         translateAnimation.setDuration(getOptionSD_AnimationDuration());
         AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
         alphaAnimation.setDuration(getOptionSD_AnimationDuration());
-//        animationSet.addAnimation(YAnimationUtils.reverseAlphaAnimation(alphaAnimation));
         animationSet.addAnimation(translateAnimation);
         animationSet.addAnimation(alphaAnimation);
-//        return YAnimationUtils.reverseAnimation(optionButton.getShowAnimation());
-        animationSet.setStartOffset(60*(getOptionPositionCount() - index));
+        //为不同的Option设置延时
+        if (index % 2 == 0) {
+            animationSet.setStartOffset(getOptionSD_AnimationDuration()/2);
+        }
         return animationSet;
     }
 }

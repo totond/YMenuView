@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Description: 一个可以弹出收回菜单栏的自定义View，带有动画效果
  */
 
-public abstract class YMenu extends RelativeLayout implements OptionButton2.OptionPrepareListener{
+public abstract class YMenu extends RelativeLayout implements OptionButton.OptionPrepareListener{
     public final static String TAG = "ymenuview";
 
     private Context mContext;
@@ -27,7 +27,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
 
     private int drawableIds[] = {R.drawable.zero,R.drawable.one, R.drawable.two, R.drawable.three,
             R.drawable.four, R.drawable.five,R.drawable.six,R.drawable.seven};
-    private ArrayList<OptionButton2> optionButtonList;
+    private ArrayList<OptionButton> optionButtonList;
     //    private ArrayList<OnShowDisappearListener> listenerList;
     //“选项”占格个数
     private int optionPositionCount = 8;
@@ -55,7 +55,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     private Animation menuOpenAnimation, menuCloseAnimation;
     private Animation.AnimationListener animationListener;
 
-    private int mOptionSD_AnimationMode = OptionButton2.FROM_BUTTON_TOP;
+    private int mOptionSD_AnimationMode = OptionButton.FROM_BUTTON_TOP;
     private int mOptionSD_AnimationDuration = 600;
     private OnOptionsClickListener mOnOptionsClickListener;
 
@@ -113,7 +113,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
             public void onGlobalLayout() {
                 if (getWidth() != 0 && getHeight() != 0) {
                     try {
-                        Log.d(TAG, "onGlobalLayout: ");
+//                        Log.d(TAG, "onGlobalLayout: ");
                         setOptionButtons();
                         setOptionBackGrounds(mOptionsBackGroundId);
                         setOptionsImages(drawableIds);
@@ -219,7 +219,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
 //                }
 //            }
             if (!banList.get(i)) {
-                OptionButton2 optionButton = new OptionButton2(mContext,i);
+                OptionButton optionButton = new OptionButton(mContext,i);
                 setOptionPosition(optionButton, mYMenuButton, i);
                 Log.d(TAG, "setOptionButtons: ");
                 optionButton.setOptionPrepareListener(this);
@@ -232,26 +232,40 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
 
 
     @Override
-    public void onOptionPrepare(OptionButton2 optionButton,int index) {
+    public void onOptionPrepare(OptionButton optionButton, int index) {
         Log.d(TAG, "onOptionPrepare: ");
         optionButton.setShowAnimation(createOptionShowAnimation(optionButton, index));
         optionButton.setDisappearAnimation(createOptionDisappearAnimation(optionButton, index));
     }
 
-    //设置MenuButton的位置
+    /**
+     * 设置MenuButton的位置,重写该方法进行自定义设置
+     * @param menuButton 传入传入MenuButton，此时它的宽高位置属性还未设置，需要在此方法设置。
+     */
     public abstract void setMenuPosition(View menuButton);
 
-    //设置OptionButton的位置
-    public abstract void setOptionPosition(OptionButton2 optionButton, View menuButton, int index);
-
-    //设置OptionButton的显示动画
-    public abstract Animation createOptionShowAnimation(OptionButton2 optionButton,int index);
-
-    /*
-     * 设置OptionButton的消失动画
-     * @param
+    /**
+     * 设置OptionButton的位置,重写该方法进行自定义设置
+     * @param optionButton 传入OptionButton，此时它的宽高位置属性还未设置，需要在此方法设置。
+     * @param menuButton 传入MenuButton，此时它已经初始化完毕，可以利用。
+     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
      */
-    public abstract Animation createOptionDisappearAnimation(OptionButton2 optionButton,int index);
+    public abstract void setOptionPosition(OptionButton optionButton, View menuButton, int index);
+
+    /**
+     * 设置OptionButton的显示动画,重写该方法进行自定义设置
+     * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
+     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
+     */
+    public abstract Animation createOptionShowAnimation(OptionButton optionButton, int index);
+
+
+    /**
+     * 设置OptionButton的消失动画,重写该方法进行自定义设置
+     * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
+     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
+     */
+    public abstract Animation createOptionDisappearAnimation(OptionButton optionButton, int index);
 
     //设置选项按钮的background
     public void setOptionBackGrounds(@DrawableRes Integer drawableId){
@@ -287,7 +301,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     //弹出菜单
     public void showMenu() {
         if (!isShowMenu) {
-            for (OptionButton2 button : optionButtonList) {
+            for (OptionButton button : optionButtonList) {
                 button.onShow();
             }
             if (menuOpenAnimation != null) {
@@ -300,7 +314,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     //关闭菜单
     public void closeMenu() {
         if (isShowMenu) {
-            for (OptionButton2 button : optionButtonList) {
+            for (OptionButton button : optionButtonList) {
                 button.onClose();
             }
             if (menuCloseAnimation != null) {
@@ -313,7 +327,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
     //让OptionButton直接消失，不执行关闭动画
     public void disappearMenu() {
         if (isShowMenu) {
-            for (OptionButton2 button : optionButtonList) {
+            for (OptionButton button : optionButtonList) {
                 button.onDisappear();
             }
             isShowMenu = false;
@@ -366,7 +380,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
         return mOptionSD_AnimationDuration;
     }
 
-    public @OptionButton2.SD_Animation int getOptionSD_AnimationMode() {
+    public @OptionButton.SD_Animation int getOptionSD_AnimationMode() {
         return mOptionSD_AnimationMode;
     }
 
@@ -410,7 +424,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton2.Opti
         return mYOptionToParentXMargin;
     }
 
-    public ArrayList<OptionButton2> getOptionButtonList() {
+    public ArrayList<OptionButton> getOptionButtonList() {
         return optionButtonList;
     }
 

@@ -11,10 +11,10 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author yanzhikai
- * Description: 这个是菜单弹出的选项按钮，在这里主要对其进行进出动画的设置。
+ * Description: 这个是菜单弹出的选项按钮
  */
 
-public class OptionButton2 extends android.support.v7.widget.AppCompatImageView {
+public class OptionButton extends android.support.v7.widget.AppCompatImageView {
     private Animation showAnimation,disappearAnimation;
     public static final int FROM_BUTTON_LEFT = 0 , FROM_BUTTON_TOP = 1,FROM_RIGHT = 2,FROM_BOTTOM = 3;
     private @SD_Animation int mSD_Animation = FROM_BUTTON_LEFT;
@@ -27,18 +27,18 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
     @Retention(RetentionPolicy.SOURCE)
     public  @interface SD_Animation {}
 
-    public OptionButton2(Context context,int index) {
+    public OptionButton(Context context, int index) {
         super(context);
         mIndex = index;
         init();
     }
 
-    public OptionButton2(Context context, AttributeSet attrs) {
+    public OptionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public OptionButton2(Context context, AttributeSet attrs, int defStyleAttr) {
+    public OptionButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -53,7 +53,7 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
             public void onGlobalLayout() {
                 if (getX() != 0 && getY() != 0 && getWidth() != 0 && getHeight() != 0) {
                     if (mOptionPrepareListener != null){
-                        mOptionPrepareListener.onOptionPrepare(OptionButton2.this,mIndex);
+                        mOptionPrepareListener.onOptionPrepare(OptionButton.this,mIndex);
                     }
 //                    setShowAndDisappear();
 
@@ -155,6 +155,6 @@ public class OptionButton2 extends android.support.v7.widget.AppCompatImageView 
     }
 
     public interface OptionPrepareListener{
-        void onOptionPrepare(OptionButton2 optionButton,int index);
+        void onOptionPrepare(OptionButton optionButton, int index);
     }
 }

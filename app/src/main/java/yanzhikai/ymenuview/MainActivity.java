@@ -15,9 +15,7 @@ public class MainActivity extends AppCompatActivity implements YMenu.OnOptionsCl
         setContentView(R.layout.activity_main);
         mYMenuView = (YMenu) findViewById(R.id.ymv);
         mYMenuView.setOnOptionsClickListener(this);
-//        mYMenuView.setYMenuSetting(new Circle8YMenuSetting(mYMenuView));
-//        mYMenuView.setYMenuSetting(new TreeYMenuSetting(mYMenuView));
-//        mYMenuView.setBanArray(0,2,4,6);
+//        mYMenuView.setBanArray(0,2,6);
         mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
                 ,R.drawable.three,R.drawable.four,R.drawable.five,R.drawable.six
                 ,R.drawable.seven,R.drawable.eight);

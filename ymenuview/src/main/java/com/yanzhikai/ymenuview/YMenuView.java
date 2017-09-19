@@ -8,23 +8,22 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
-import android.widget.RelativeLayout;
 
 import com.yanzhikai.ymenuview.PositionBuilders.MenuPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.OptionPositionBuilder;
 import com.yanzhikai.ymenuview.PositionBuilders.PositionBuilder;
 
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BOTTOM;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_LEFT;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_BUTTON_TOP;
-import static com.yanzhikai.ymenuview.OptionButton2.FROM_RIGHT;
+import static com.yanzhikai.ymenuview.OptionButton.FROM_BOTTOM;
+import static com.yanzhikai.ymenuview.OptionButton.FROM_BUTTON_LEFT;
+import static com.yanzhikai.ymenuview.OptionButton.FROM_BUTTON_TOP;
+import static com.yanzhikai.ymenuview.OptionButton.FROM_RIGHT;
 
 /**
  * @author Yanzhikai
  * Description: 一个可以弹出收回菜单栏的自定义View，带有动画效果
  */
 
-public class YMenuView extends YMenu implements OptionButton2.OptionPrepareListener{
+public class YMenuView extends YMenu implements OptionButton.OptionPrepareListener{
     public final static String TAG = "ymenuview";
 
     public YMenuView(Context context) {
@@ -59,7 +58,7 @@ public class YMenuView extends YMenu implements OptionButton2.OptionPrepareListe
 
 
     @Override
-    public void setOptionPosition(OptionButton2 optionButton, View menuButton, int index){
+    public void setOptionPosition(OptionButton optionButton, View menuButton, int index){
         Log.d(TAG, "setOptionPosition: " + menuButton.getX());
         //设置动画模式和时长
         optionButton.setSD_Animation(getOptionSD_AnimationMode());
@@ -70,7 +69,7 @@ public class YMenuView extends YMenu implements OptionButton2.OptionPrepareListe
 
         OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
         OptionPositionBuilder
-                .isAlignMenuButton(false)
+                .isAlignMenuButton(false,false)
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
                 .setXYMargin(
@@ -100,7 +99,7 @@ public class YMenuView extends YMenu implements OptionButton2.OptionPrepareListe
     }
 
     @Override
-    public Animation createOptionShowAnimation(OptionButton2 optionButton,int index){
+    public Animation createOptionShowAnimation(OptionButton optionButton, int index){
         AnimationSet animationSet = new AnimationSet(true);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0,1);
         alphaAnimation.setDuration(getOptionSD_AnimationDuration());
@@ -136,7 +135,7 @@ public class YMenuView extends YMenu implements OptionButton2.OptionPrepareListe
     }
 
     @Override
-    public Animation createOptionDisappearAnimation(OptionButton2 optionButton,int index){
+    public Animation createOptionDisappearAnimation(OptionButton optionButton, int index){
         AnimationSet animationSet = new AnimationSet(true);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1,0);
         alphaAnimation.setDuration(getOptionSD_AnimationDuration());

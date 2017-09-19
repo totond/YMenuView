@@ -3,7 +3,7 @@ package com.yanzhikai.ymenuview.PositionBuilders;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.yanzhikai.ymenuview.OptionButton2;
+import com.yanzhikai.ymenuview.OptionButton;
 
 import static android.widget.RelativeLayout.ABOVE;
 import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;
@@ -15,19 +15,20 @@ import static android.widget.RelativeLayout.LEFT_OF;
 import static android.widget.RelativeLayout.RIGHT_OF;
 
 /**
- * Created by yany on 2017/9/13.
+ * OptionButton位置信息的Builder类，
+ * 具体功能就是运用建造者模式，传入一个OptionButton对象，按需求配置出一个LayoutParams来缺点OptionButton的位置
  */
 
 public class OptionPositionBuilder extends PositionBuilder {
-    private OptionButton2 mOptionButton;
+    private OptionButton mOptionButton;
     private View mMenuButton;
     private int mWidth = 0, mHeight = 0;
     private int mXMargin = 0, mYMargin = 0;
     private @PositionBuilder.MarginOrientationX int mMarginOrientationX = MARGIN_LEFT;
     private @PositionBuilder.MarginOrientationY int mMarginOrientationY = MARGIN_TOP;
-    private boolean mIsAlignMenuButton = false;
+    private boolean mIsAlignMenuButtonX = false,mIsAlignMenuButtonY = false;
 
-    public OptionPositionBuilder(OptionButton2 optionButton, View menuButton) {
+    public OptionPositionBuilder(OptionButton optionButton, View menuButton) {
         mOptionButton = optionButton;
         mMenuButton = menuButton;
     }
@@ -53,25 +54,27 @@ public class OptionPositionBuilder extends PositionBuilder {
         return this;
     }
 
-    public OptionPositionBuilder isAlignMenuButton(boolean isAlignMenuButton){
-        mIsAlignMenuButton = isAlignMenuButton;
+    public OptionPositionBuilder isAlignMenuButton(boolean isAlignMenuButtonX,boolean isAlignMenuButtonY){
+        mIsAlignMenuButtonX = isAlignMenuButtonX;
+        mIsAlignMenuButtonY = isAlignMenuButtonY;
         return this;
     }
 
+    //进行最后的配置操作，就是把前面配置的属性加入到LayoutParams里面，然后绑定OptionButton。
     @Override
     public void finish(){
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(mWidth,mHeight);
 
         if (mMarginOrientationX == MARGIN_LEFT){
             layoutParams.leftMargin = mXMargin;
-            if (mIsAlignMenuButton){
+            if (mIsAlignMenuButtonX){
                 layoutParams.addRule(RIGHT_OF,mMenuButton.getId());
             }else {
                 layoutParams.addRule(ALIGN_PARENT_LEFT);
             }
         }else {
             layoutParams.rightMargin = mXMargin;
-            if (mIsAlignMenuButton){
+            if (mIsAlignMenuButtonX){
                 layoutParams.addRule(LEFT_OF,mMenuButton.getId());
             }else {
                 layoutParams.addRule(ALIGN_PARENT_RIGHT);
@@ -79,14 +82,14 @@ public class OptionPositionBuilder extends PositionBuilder {
         }
         if (mMarginOrientationY == MARGIN_TOP){
             layoutParams.topMargin = mYMargin;
-            if (mIsAlignMenuButton){
+            if (mIsAlignMenuButtonY){
                 layoutParams.addRule(BELOW,mMenuButton.getId());
             }else {
                 layoutParams.addRule(ALIGN_PARENT_TOP);
             }
         }else {
             layoutParams.bottomMargin = mYMargin;
-            if (mIsAlignMenuButton){
+            if (mIsAlignMenuButtonY){
                 layoutParams.addRule(ABOVE,mMenuButton.getId());
             }else {
                 layoutParams.addRule(ALIGN_PARENT_BOTTOM);
