@@ -7,18 +7,20 @@ import android.widget.Toast;
 import com.yanzhikai.ymenuview.YMenu;
 
 public class MainActivity extends AppCompatActivity implements YMenu.OnOptionsClickListener{
-    private YMenu mYMenuView;
+    private YMenu mYMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mYMenuView = (YMenu) findViewById(R.id.ymv);
-        mYMenuView.setOnOptionsClickListener(this);
-//        mYMenuView.setBanArray(0,2,6);
-        mYMenuView.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
+        mYMenu = (YMenu) findViewById(R.id.ymv);
+        mYMenu.setOnOptionsClickListener(this);
+        mYMenu.setBanArray(3,4,7,5,6);
+        mYMenu.setOptionDrawableIds(R.drawable.zero,R.drawable.one,R.drawable.two
                 ,R.drawable.three,R.drawable.four,R.drawable.five,R.drawable.six
                 ,R.drawable.seven,R.drawable.eight);
+//        mYMenu.setMenuOpenAnimation(null);
+//        mYMenu.setMenuCloseAnimation(null);
     }
 
 

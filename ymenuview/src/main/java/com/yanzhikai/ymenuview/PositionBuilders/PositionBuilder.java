@@ -28,7 +28,7 @@ public abstract class PositionBuilder {
     //设置XY距离
     public abstract PositionBuilder setXYMargin(int XMargin,int YMargin);
 
-    //设置XY方向的参考
+    //设置XY方向的参考，如果设置了MARGIN_LEFT和MARGIN_TOP，那么XMargin和YMargin就是与参照物左边界和上边界的距离
     public abstract PositionBuilder setMarginOrientation(@MarginOrientationX int marginOrientationX,@MarginOrientationY int marginOrientationY);
 
     //进行最后的配置操作

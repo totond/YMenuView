@@ -53,7 +53,7 @@ public class MenuPositionBuilder extends PositionBuilder {
         return this;
     }
 
-    //设置是否在XY方向处于中心
+    //设置是否在XY方向处于中心，这个优先于setXYMargin()方法和setMarginOrientation()方法
     public MenuPositionBuilder setIsXYCenter(boolean isXCenter, boolean isYCenter) {
         mIsXCenter = isXCenter;
         mIsYCenter = isYCenter;

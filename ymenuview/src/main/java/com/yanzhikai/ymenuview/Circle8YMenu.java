@@ -54,7 +54,8 @@ public class Circle8YMenu extends YMenu{
                 e.printStackTrace();
             }
         }
-        //计算OptionButton的位置
+
+
         int centerX = menuButton.getLeft() + menuButton.getWidth()/2;
         int centerY = menuButton.getTop() + menuButton.getHeight()/2;
         int halfOptionWidth = getYOptionButtonWidth()/2;
@@ -63,13 +64,12 @@ public class Circle8YMenu extends YMenu{
         float x = xyTimes[index % 8];
         float y = xyTimes[(index + 6) % 8];
 
-        Log.d("ymenuview", "setOptionPosition:x " + x);
-
         OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
         OptionPositionBuilder
                 .isAlignMenuButton(false,false)
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
+                //计算OptionButton的位置
                 .setXYMargin(
                         (int)(centerX + x * getYOptionXMargin() - halfOptionWidth)
                         ,(int)(centerY + y * getYOptionYMargin() - halfOptionHeight)

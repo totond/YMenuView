@@ -41,10 +41,15 @@ public class YMenuView extends YMenu implements OptionButton.OptionPrepareListen
     @Override
     public void setMenuPosition(View menuButton){
         new MenuPositionBuilder(menuButton)
+                //设置宽高
                 .setWidthAndHeight(getYMenuButtonWidth(), getYMenuButtonHeight())
+                //设置参考方向
                 .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
+                //设置是否在XY方向处于中心
                 .setIsXYCenter(false,false)
+                //设置XY方向的距离，如果设置了MARGIN_LEFT和MARGIN_TOP，那么XMargin和YMargin就是与参照物左边界和上边界的距离
                 .setXYMargin(getYMenuToParentXMargin(),getYMenuToParentYMargin())
+                //最后确认时候调用
                 .finish();
 
 
@@ -59,7 +64,7 @@ public class YMenuView extends YMenu implements OptionButton.OptionPrepareListen
 
     @Override
     public void setOptionPosition(OptionButton optionButton, View menuButton, int index){
-        Log.d(TAG, "setOptionPosition: " + menuButton.getX());
+//        Log.d(TAG, "setOptionPosition: " + menuButton.getX());
         //设置动画模式和时长
         optionButton.setSD_Animation(getOptionSD_AnimationMode());
         optionButton.setDuration(getOptionSD_AnimationDuration());
@@ -67,11 +72,14 @@ public class YMenuView extends YMenu implements OptionButton.OptionPrepareListen
         //计算OptionButton的位置
         int position = index % getOptionColumns();
 
-        OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
-        OptionPositionBuilder
-                .isAlignMenuButton(false,false)
+        new OptionPositionBuilder(optionButton,menuButton)
+                //设置宽高
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
+                //设置在XY方向是否以MenuButton作为参照物
+                .isAlignMenuButton(false,false)
+                //设置参考方向
                 .setMarginOrientation(PositionBuilder.MARGIN_RIGHT,PositionBuilder.MARGIN_BOTTOM)
+                //设置XY方向的距离，如果设置了MARGIN_LEFT和MARGIN_TOP，那么XMargin和YMargin就是与参照物左边界和上边界的距离
                 .setXYMargin(
                         getYOptionToParentXMargin()
                                 + getYOptionXMargin() * position
@@ -79,6 +87,7 @@ public class YMenuView extends YMenu implements OptionButton.OptionPrepareListen
                         getYOptionToParentYMargin()
                                 + (getYOptionButtonHeight() + getYOptionYMargin())
                                 * (index / getOptionColumns()))
+                //最后确认时候调用
                 .finish();
 
 //        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(

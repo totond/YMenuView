@@ -75,8 +75,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:menuButtonBackGround="@drawable/setting"
-        app:optionXMargin="10dp"
-        app:optionYMargin="10dp"
+        app:optionXMargin="50dp"
+        app:optionYMargin="50dp"
         app:sd_duration="400"
         app:optionPositionCounts="8"
         app:optionsBackGround="@drawable/background_option_button" />

@@ -15,26 +15,28 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 /**
+ * 一个可以弹出收回菜单栏的自定义View，带有动画效果
  * @author Yanzhikai
- * Description: 一个可以弹出收回菜单栏的自定义View，带有动画效果
  */
 
-public abstract class YMenu extends RelativeLayout implements OptionButton.OptionPrepareListener{
+public abstract class YMenu extends RelativeLayout implements OptionButton.OptionPrepareListener {
     public final static String TAG = "ymenuview";
 
     private Context mContext;
     private Button mYMenuButton;
 
-    private int drawableIds[] = {R.drawable.zero,R.drawable.one, R.drawable.two, R.drawable.three,
-            R.drawable.four, R.drawable.five,R.drawable.six,R.drawable.seven};
+    private int drawableIds[] = {R.drawable.zero, R.drawable.one, R.drawable.two, R.drawable.three,
+            R.drawable.four, R.drawable.five, R.drawable.six, R.drawable.seven};
     private ArrayList<OptionButton> optionButtonList;
     //    private ArrayList<OnShowDisappearListener> listenerList;
     //“选项”占格个数
     private int optionPositionCount = 8;
     //“选项”占格列数
     private int optionColumns = 1;
+    //OptionButton实际数量
+    private int optionButtonCount = 0;
     private int[] banArray = {};
-    private ArrayList<Boolean> banList ;
+    private ArrayList<Boolean> banList;
     //MenuButton宽高
     private int mYMenuButtonWidth = 80, mYMenuButtonHeight = 80;
     //OptionButton宽高
@@ -46,8 +48,12 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     //第一个OptionButton的X方向边距和Y方向边距（距离父ViewGroup边界）
     private int mYOptionToParentYMargin = 160, mYOptionToParentXMargin = 50;
 
-    private @DrawableRes int mMenuButtonBackGroundId = R.drawable.setting;
-    private @DrawableRes int mOptionsBackGroundId = R.drawable.null_drawable;
+    private
+    @DrawableRes
+    int mMenuButtonBackGroundId = R.drawable.setting;
+    private
+    @DrawableRes
+    int mOptionsBackGroundId = R.drawable.null_drawable;
 
     //菜单是否正在打开
     private boolean isShowMenu = false;
@@ -92,17 +98,16 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         mYOptionYMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionYMargin, mYOptionYMargin);
         mYOptionXMargin = typedArray.getDimensionPixelSize(R.styleable.YMenuView_optionXMargin, mYOptionXMargin);
         mMenuButtonBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_menuButtonBackGround, mMenuButtonBackGroundId);
-        mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround,R.drawable.null_drawable);
-        mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode,mOptionSD_AnimationMode);
-        mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration,mOptionSD_AnimationDuration);
-        isShowMenu = typedArray.getBoolean(R.styleable.YMenuView_isShowMenu,isShowMenu);
+        mOptionsBackGroundId = typedArray.getResourceId(R.styleable.YMenuView_optionsBackGround, R.drawable.null_drawable);
+        mOptionSD_AnimationMode = typedArray.getInt(R.styleable.YMenuView_sd_animMode, mOptionSD_AnimationMode);
+        mOptionSD_AnimationDuration = typedArray.getInt(R.styleable.YMenuView_sd_duration, mOptionSD_AnimationDuration);
+        isShowMenu = typedArray.getBoolean(R.styleable.YMenuView_isShowMenu, isShowMenu);
 
         typedArray.recycle();
     }
 
     private void init(Context context) {
         mContext = context;
-//        mSetting = new DefaultYMenuSetting(this);
         initMenuAnim();
         setMenuButton();
 
@@ -136,6 +141,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
             @Override
             public void onAnimationStart(Animation animation) {
                 mYMenuButton.setClickable(false);
+                Log.d(TAG, "onAnimationStart: ");
 
             }
 
@@ -159,18 +165,19 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     //初始化BanList
     private void initBan() throws Exception {
         banList = new ArrayList<>(optionPositionCount);
-        for (int i = 0; i < optionPositionCount; i++){
+        for (int i = 0; i < optionPositionCount; i++) {
             banList.add(false);
         }
-        for (Integer i:banArray){
-            if (i >= 0 && i < optionPositionCount){
+        for (Integer i : banArray) {
+            if (i >= 0 && i < optionPositionCount) {
                 Log.d(TAG, "initBan: i " + i);
-                banList.set(i,true);
-            }else {
+                banList.set(i, true);
+            } else {
                 throw new Exception("Ban数组设置不合理，含有负数或者超出范围");
             }
 //            Log.d(TAG, "initBan: size " + banList.size());
         }
+        optionButtonCount = optionPositionCount - banList.size();
     }
 
 
@@ -199,7 +206,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     }
 
 
-
     //设置选项按钮
     private void setOptionButtons() throws Exception {
         optionButtonList = new ArrayList<>(optionPositionCount);
@@ -219,7 +225,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 //                }
 //            }
             if (!banList.get(i)) {
-                OptionButton optionButton = new OptionButton(mContext,i);
+                OptionButton optionButton = new OptionButton(mContext, i);
                 setOptionPosition(optionButton, mYMenuButton, i);
                 Log.d(TAG, "setOptionButtons: ");
                 optionButton.setOptionPrepareListener(this);
@@ -240,39 +246,43 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
     /**
      * 设置MenuButton的位置,重写该方法进行自定义设置
+     *
      * @param menuButton 传入传入MenuButton，此时它的宽高位置属性还未设置，需要在此方法设置。
      */
     public abstract void setMenuPosition(View menuButton);
 
     /**
      * 设置OptionButton的位置,重写该方法进行自定义设置
+     *
      * @param optionButton 传入OptionButton，此时它的宽高位置属性还未设置，需要在此方法设置。
-     * @param menuButton 传入MenuButton，此时它已经初始化完毕，可以利用。
-     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
+     * @param menuButton   传入MenuButton，此时它已经初始化完毕，可以利用。
+     * @param index        传入的是该OptionButton的索引，用于区分不同OptionButton。
      */
     public abstract void setOptionPosition(OptionButton optionButton, View menuButton, int index);
 
     /**
      * 设置OptionButton的显示动画,重写该方法进行自定义设置
+     *
      * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
-     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
+     * @param index        传入的是该OptionButton的索引，用于区分不同OptionButton。
      */
     public abstract Animation createOptionShowAnimation(OptionButton optionButton, int index);
 
 
     /**
      * 设置OptionButton的消失动画,重写该方法进行自定义设置
+     *
      * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
-     * @param index 传入的是该OptionButton的索引，用于区分不同OptionButton。
+     * @param index        传入的是该OptionButton的索引，用于区分不同OptionButton。
      */
     public abstract Animation createOptionDisappearAnimation(OptionButton optionButton, int index);
 
     //设置选项按钮的background
-    public void setOptionBackGrounds(@DrawableRes Integer drawableId){
+    public void setOptionBackGrounds(@DrawableRes Integer drawableId) {
         for (int i = 0; i < optionButtonList.size(); i++) {
-            if (drawableId == null){
+            if (drawableId == null) {
                 optionButtonList.get(i).setBackground(null);
-            }else {
+            } else {
                 optionButtonList.get(i).setBackgroundResource(drawableId);
             }
 
@@ -289,13 +299,35 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
         for (int i = 0; i < optionButtonList.size(); i++) {
             optionButtonList.get(i).setOnClickListener(new MyOnClickListener(i));
-            if (drawableIds == null){
+            if (drawableIds == null) {
                 optionButtonList.get(i).setImageDrawable(null);
-            }else {
+            } else {
                 optionButtonList.get(i).setImageResource(drawableIds[i]);
             }
 
         }
+    }
+
+    //设置MenuButton弹出菜单选项时候MenuButton自身的动画，默认为顺时针旋转180度，为空则是关闭动画效果
+    public void setMenuOpenAnimation(Animation menuOpenAnimation) {
+        if (menuOpenAnimation == null) {
+            menuOpenAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_null);
+        }
+        menuOpenAnimation.setDuration(mOptionSD_AnimationDuration);
+        menuOpenAnimation.setAnimationListener(animationListener);
+        this.menuOpenAnimation = menuOpenAnimation;
+
+
+    }
+
+    //设置MenuButton收回菜单选项时候MenuButton自身的动画，默认为逆时针旋转180度，为空则是关闭动画动画效果
+    public void setMenuCloseAnimation(Animation menuCloseAnimation) {
+        if (menuCloseAnimation == null) {
+            menuCloseAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_null);
+        }
+        menuCloseAnimation.setDuration(mOptionSD_AnimationDuration);
+        menuCloseAnimation.setAnimationListener(animationListener);
+        this.menuCloseAnimation = menuCloseAnimation;
     }
 
     //弹出菜单
@@ -336,7 +368,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
 
     //清除所有View，用于之后刷新
-    private void cleanMenu(){
+    private void cleanMenu() {
         removeAllViews();
         if (optionButtonList != null) {
             optionButtonList.clear();
@@ -347,7 +379,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     /*
      * 对整个YMenuView进行重新初始化，用于在做完一些设定之后刷新
      */
-    public void refresh(){
+    public void refresh() {
         cleanMenu();
         init(mContext);
     }
@@ -362,6 +394,10 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
     public int getOptionColumns() {
         return optionColumns;
+    }
+
+    public int getOptionButtonCount() {
+        return optionButtonCount;
     }
 
     public int[] getDrawableIds() {
@@ -380,7 +416,9 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         return mOptionSD_AnimationDuration;
     }
 
-    public @OptionButton.SD_Animation int getOptionSD_AnimationMode() {
+    public
+    @OptionButton.SD_Animation
+    int getOptionSD_AnimationMode() {
         return mOptionSD_AnimationMode;
     }
 
@@ -434,7 +472,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     }
 
 
-
     private class MyOnClickListener implements OnClickListener {
         private int index;
 
@@ -461,18 +498,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         this.drawableIds = drawableIds;
     }
 
-    //设置MenuButton弹出菜单选项时候MenuButton自身的动画，默认为顺时针旋转180度，为空则是关闭动画
-    public void setMenuOpenAnimation(Animation menuOpenAnimation) {
-        menuOpenAnimation.setAnimationListener(animationListener);
-        this.menuOpenAnimation = menuOpenAnimation;
-
-    }
-
-    //设置MenuButton收回菜单选项时候MenuButton自身的动画，默认为逆时针旋转180度，为空则是关闭动画
-    public void setMenuCloseAnimation(Animation menuCloseAnimation) {
-        menuCloseAnimation.setAnimationListener(animationListener);
-        this.menuCloseAnimation = menuCloseAnimation;
-    }
 
     //设置禁止放置选项的位置序号，注意不能输入负数、重复数字或者大于等于optionPositionCounts的数，会报错。
     public void setBanArray(int... banArray) {
@@ -486,7 +511,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     }
 
     //设置一开始的时候是否展开菜单
-    public void setIsShowMenu(boolean isShowMenu){
+    public void setIsShowMenu(boolean isShowMenu) {
         this.isShowMenu = isShowMenu;
     }
 
@@ -551,7 +576,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     public void setOptionsBackGroundId(int optionsBackGroundId) {
         this.mOptionsBackGroundId = optionsBackGroundId;
     }
-
 
 
     //用于让用户在外部实现点击事件的接口，index可以区分OptionButton

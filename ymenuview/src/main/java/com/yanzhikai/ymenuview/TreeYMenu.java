@@ -54,11 +54,17 @@ public class TreeYMenu extends YMenu {
     public void setOptionPosition(OptionButton optionButton, View menuButton, int index) {
         if (index > 8){
             try {
-                throw new Exception("TreeYMenuView的OptionPosition最大数量为8，超过将会发生错误");
+                throw new Exception("TreeYMenuView的OptionPosition最大数量为9，超过将会发生错误");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        int centerX = menuButton.getLeft() + menuButton.getWidth()/2;
+        int centerY = menuButton.getTop() + menuButton.getHeight()/2;
+        int halfOptionWidth = getYOptionButtonWidth()/2;
+        int halfOptionHeight = getYOptionButtonHeight()/2;
+
         //利用乘积因子来决定不同位置
         float x = xTimes[index];
         float y = yTimes[index];
@@ -68,8 +74,8 @@ public class TreeYMenu extends YMenu {
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
                 .setXYMargin(
-                        (int)(x * getYOptionXMargin() + getYMenuButton().getLeft())
-                        ,(int)(y * getYOptionYMargin() + getYMenuButton().getTop())
+                        (int)(centerX + x * getYOptionXMargin() - halfOptionWidth)
+                        ,(int)(centerY + y * getYOptionYMargin() - halfOptionHeight)
                 )
                 .finish();
     }

@@ -56,6 +56,12 @@ public class SquareYMenu extends YMenu {
                 e.printStackTrace();
             }
         }
+
+        int centerX = menuButton.getLeft() + menuButton.getWidth()/2;
+        int centerY = menuButton.getTop() + menuButton.getHeight()/2;
+        int halfOptionWidth = getYOptionButtonWidth()/2;
+        int halfOptionHeight = getYOptionButtonHeight()/2;
+
         int x = xTimes[index];
         int y = yTimes[index];
 
@@ -65,8 +71,8 @@ public class SquareYMenu extends YMenu {
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
                 .setXYMargin(
-                        x * (getYOptionXMargin() + getYOptionButtonWidth()) + getYMenuButton().getLeft()
-                        ,y * (getYOptionYMargin() + getYOptionButtonHeight()) + getYMenuButton().getTop()
+                        centerX + x * getYOptionXMargin() - halfOptionWidth
+                        ,centerY + y * getYOptionYMargin() - halfOptionHeight
                 )
                 .finish();
     }
@@ -113,7 +119,9 @@ public class SquareYMenu extends YMenu {
         if (index < 3){
             toX = getYMenuButton().getX() - optionButton.getX();
             toY = getYMenuButton().getY() - optionButton.getY();
-            animationSet.setStartOffset(getOptionSD_AnimationDuration());
+            if (getOptionButtonCount() > 3) {
+                animationSet.setStartOffset(getOptionSD_AnimationDuration());
+            }
         }else if (index < 6){
             toX = getOptionButtonList().get(0).getX() - optionButton.getX();
             toY = getOptionButtonList().get(0).getY() - optionButton.getY();
