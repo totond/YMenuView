@@ -4,7 +4,7 @@
 ![](https://i.imgur.com/GK8b2P0.gif)
 （前面是之前YMenuView1.x的效果，后面是新加的）
 ## 简介
-　　这是一个类似Path菜单的自定义View，这是经过大改版之后的YMenuView2.x，之前1.x版本的README[在这]()。2.x版本可以自定义MenuButton和OptionButton的布局和显示消失动画，效果可参考上图，下面来开始看看如何自定义炫酷的YMenu吧。
+　　这是一个类似Path菜单的自定义View，这是经过大改版之后的YMenuView2.x，之前1.x版本的README[在这](https://github.com/totond/YMenuView/blob/master/README_1.x.md)。2.x版本可以自定义MenuButton和OptionButton的布局和显示消失动画，效果可参考上图，下面来开始看看如何自定义炫酷的YMenu吧。
 
 
 ## 使用
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 　　这是一个OptionButton和MenuButton组成正方形的布局，Option最大数量为8个，MenuButton为位置依靠右下，支持了`menuToParentYMargin`和`menuToParentXMargin`属性。
 
 ### 自定义YMenu
-　　这里才是YMenuView2.x的重头戏，但是由于篇幅过长，可以跳转到[自定义YMenu教程]()查看。
+　　这里才是YMenuView2.x的重头戏，但是由于篇幅过长，可以跳转到[自定义YMenu教程](https://github.com/totond/YMenuView/blob/master/自定义YMenu教程.md)查看。
 
 
 ### demo演示
