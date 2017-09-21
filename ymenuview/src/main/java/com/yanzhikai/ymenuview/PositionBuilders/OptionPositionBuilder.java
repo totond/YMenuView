@@ -54,6 +54,7 @@ public class OptionPositionBuilder extends PositionBuilder {
         return this;
     }
 
+    //设置是否以MenuButton为参考
     public OptionPositionBuilder isAlignMenuButton(boolean isAlignMenuButtonX,boolean isAlignMenuButtonY){
         mIsAlignMenuButtonX = isAlignMenuButtonX;
         mIsAlignMenuButtonY = isAlignMenuButtonY;

@@ -47,6 +47,12 @@ public class TreeYMenu extends YMenu {
                 //设置XY方向距离
                 .setXYMargin(getYMenuToParentXMargin(),getYMenuToParentYMargin())
                 .finish();
+
+//        LayoutParams layoutParams = new LayoutParams(getYMenuButtonWidth(), getYMenuButtonHeight());
+//        layoutParams.bottomMargin = getYMenuToParentYMargin();
+//        layoutParams.addRule(ALIGN_PARENT_BOTTOM);
+//        layoutParams.addRule(CENTER_HORIZONTAL);
+//        menuButton.setLayoutParams(layoutParams);
     }
 
     //设置OptionButton的位置，这里是把9个Option设置为树状布局
@@ -68,16 +74,27 @@ public class TreeYMenu extends YMenu {
         //利用乘积因子来决定不同位置
         float x = xTimes[index];
         float y = yTimes[index];
-        OptionPositionBuilder OptionPositionBuilder = new OptionPositionBuilder(optionButton,menuButton);
-        OptionPositionBuilder
+
+        new OptionPositionBuilder(optionButton,menuButton)
+                //设置是否以MenuButton为参考
                 .isAlignMenuButton(false,false)
+                //设置宽高
                 .setWidthAndHeight(getYOptionButtonWidth(), getYOptionButtonHeight())
+                //设置XY方向的参考，如果设置了MARGIN_LEFT和MARGIN_TOP，那么XMargin和YMargin就是与参照物左边界和上边界的距离
                 .setMarginOrientation(PositionBuilder.MARGIN_LEFT,PositionBuilder.MARGIN_TOP)
+                //设置XY距离
                 .setXYMargin(
                         (int)(centerX + x * getYOptionXMargin() - halfOptionWidth)
                         ,(int)(centerY + y * getYOptionYMargin() - halfOptionHeight)
                 )
                 .finish();
+
+//        LayoutParams layoutParams = new LayoutParams(getYOptionButtonWidth(), getYOptionButtonHeight());
+//        layoutParams.addRule(ALIGN_LEFT);
+//        layoutParams.addRule(ALIGN_TOP);
+//        layoutParams.leftMargin = (int)(centerX + x * getYOptionXMargin() - halfOptionWidth);
+//        layoutParams.topMargin = (int)(centerY + y * getYOptionYMargin() - halfOptionHeight);
+//        optionButton.setLayoutParams(layoutParams);
     }
 
     //设置OptionButton的显示动画，这里是为前三个先从MenuButton冒出，后面的分别从这三个冒出

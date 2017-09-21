@@ -127,10 +127,8 @@ public class SquareYMenu extends YMenu {
             toY = getOptionButtonList().get(0).getY() - optionButton.getY();
         }else {
             int oldIndex = index % 5;
-            Log.d(TAG, "createOptionShowAnimation: oldIndex" + oldIndex);
             toX = getOptionButtonList().get(oldIndex).getX() - optionButton.getX();
             toY = getOptionButtonList().get(oldIndex).getY() - optionButton.getY();
-
         }
 
         TranslateAnimation translateAnimation= new TranslateAnimation(

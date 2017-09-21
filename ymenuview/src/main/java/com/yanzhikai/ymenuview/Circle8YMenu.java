@@ -72,7 +72,7 @@ public class Circle8YMenu extends YMenu{
                 //计算OptionButton的位置
                 .setXYMargin(
                         (int)(centerX + x * getYOptionXMargin() - halfOptionWidth)
-                        ,(int)(centerY + y * getYOptionYMargin() - halfOptionHeight)
+                        ,(int)(centerY + y * getYOptionXMargin() - halfOptionHeight)
                 )
                 .finish();
     }

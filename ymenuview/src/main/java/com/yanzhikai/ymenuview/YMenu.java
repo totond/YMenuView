@@ -165,6 +165,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     //初始化BanList
     private void initBan() throws Exception {
         banList = new ArrayList<>(optionPositionCount);
+        optionButtonCount = optionPositionCount;
         for (int i = 0; i < optionPositionCount; i++) {
             banList.add(false);
         }
@@ -172,12 +173,11 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
             if (i >= 0 && i < optionPositionCount) {
                 Log.d(TAG, "initBan: i " + i);
                 banList.set(i, true);
+                optionButtonCount--;
             } else {
                 throw new Exception("Ban数组设置不合理，含有负数或者超出范围");
             }
-//            Log.d(TAG, "initBan: size " + banList.size());
         }
-        optionButtonCount = optionPositionCount - banList.size();
     }
 
 
@@ -265,6 +265,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
      *
      * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
      * @param index        传入的是该OptionButton的索引，用于区分不同OptionButton。
+     * @return             返回的是创建好的动画
      */
     public abstract Animation createOptionShowAnimation(OptionButton optionButton, int index);
 
@@ -274,6 +275,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
      *
      * @param optionButton 传入了该动画所属的OptionButton，此时它的宽高位置属性已初始化完毕，可以利用。
      * @param index        传入的是该OptionButton的索引，用于区分不同OptionButton。
+     * @return             返回的是创建好的动画
      */
     public abstract Animation createOptionDisappearAnimation(OptionButton optionButton, int index);
 
@@ -396,6 +398,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         return optionColumns;
     }
 
+    //获取实际的OptionButton数量
     public int getOptionButtonCount() {
         return optionButtonCount;
     }
