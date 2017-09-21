@@ -223,6 +223,9 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 ![](https://i.imgur.com/WnloJhv.gif)
 　　但是动画延时还是会算上不被填充的位置，这暂时无法避免，所以想要更好的体验效果的话就继承YMenu重写方法吧。
 
+## 更新
+- **version 2.0.0*:2017/09/21 全新版本更新：可以实现自定义YMenu，增加3个YMenu类型，原YMenuView现在也是YMenu的一个子类。
+
 ## 后续
 　　可能会实现自定义动画，还有给这些OptionButton加上轨迹等。
 
