@@ -1,7 +1,8 @@
 # YMenuView
 　　欢迎 Star or Fork！有什么意见和建议可以在Issue上提出。
-![](https://i.imgur.com/GK8b2P0.gif)
 
+![](https://i.imgur.com/GK8b2P0.gif)
+（前面是之前YMenuView1.x的效果，后面是新加的）
 ## 简介
 　　这是一个类似Path菜单的自定义View，这是经过大改版之后的YMenuView2.x，之前1.x版本的README[在这]()。2.x版本可以自定义MenuButton和OptionButton的布局和显示消失动画，效果可参考上图，下面来开始看看如何自定义炫酷的YMenu吧。
 
