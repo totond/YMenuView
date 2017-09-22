@@ -3,8 +3,14 @@
 
 ![](https://i.imgur.com/GK8b2P0.gif)
 （前面是之前YMenuView1.x的效果，后面是新加的）
+
+ > 传送门
+ > [YMenuView1.x分析](http://blog.csdn.net/totond/article/details/77364137)
+ > [YMenuView2.x分析](http://blog.csdn.net/totond/article/details/78059196)
+ > [自定义YMenu教程](https://github.com/totond/YMenuView/blob/master/自定义YMenu教程.md)
+
 ## 简介
-　　这是一个类似Path菜单的自定义View，这是经过大改版之后的YMenuView2.x，之前1.x版本的README[在这](https://github.com/totond/YMenuView/blob/master/README_1.x.md)。2.x版本可以自定义MenuButton和OptionButton的布局和显示消失动画，效果可参考上图，下面来开始看看如何自定义炫酷的YMenu吧。
+　　这是一个类似Path菜单的自定义View，这是经过大改版之后的YMenuView2.x，之前[1.x版本的README](https://github.com/totond/YMenuView/blob/master/README_1.x.md)。2.x版本可以自定义MenuButton和OptionButton的布局和显示消失动画，效果可参考上图，下面来开始看看如何自定义炫酷的YMenu吧。
 
 
 ## 使用
@@ -17,6 +23,7 @@
 
 ### 抽象类YMenu
 　　2.x版本后由之前单一的YMenuView把一些通用逻辑提取出来形成了抽象父类YMenu，开放出4个抽象方法来让用户自定义MenuButton和OptionButton的布局和显示消失动画，而YMenuView的功能则没有变化，增加了3个YMenu的子类，实现了不同的效果。
+
 ![](https://i.imgur.com/5ze9jNT.png)
 
 ### 属性
@@ -151,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 
 ### YMenu其他子类
 #### Circle8YMenu
-　　![](https://i.imgur.com/TKPOKZq.gif)
+![](https://i.imgur.com/TKPOKZq.gif)
 　　这是一个OptionButton围绕着MenuButton的布局，Option最大数量为8个，MenuButton的位置位于ViewGroup正中间，如果想改变的话可以继承Circle8YMenu，单单重写`setMenuPosition()`方法就可以了，这个是以`optionXMargin`为圆的半径。
 
 #### TreeYMenu
@@ -242,4 +249,4 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
  
  > YMenuView原理分析博客：
  > YMenuView1.x分析：http://blog.csdn.net/totond/article/details/77364137
- > YMenuView2.x分析：
+ > YMenuView2.x分析：http://blog.csdn.net/totond/article/details/78059196

@@ -111,7 +111,7 @@
                 .finish();
     }
 ```
-　　上面这两种方法是等价的。
+　　上面这两种方法是等价的，使用两种方法都可以。
 
 ### setOptionPosition()方法
 　　此方法的实现决定了OptionButton的位置，
@@ -178,7 +178,7 @@
                 .finish();
     }
 ```
-　　这里用到了乘积因子，它们是xy方向距离对应的比例值：以MenuButton的中心作为参考点，以optionXMargin和optionYMargin作为单位长度，xy乘积因子分别乘以单位长度就是OptionButton到参考点的x,y方向距离，根据这个距离和MenuButton的位置信息，就可以得出OptionButton的布局了：
+　　这里用到了乘积因子，它们是xy方向距离对应的比例值：**以MenuButton的中心作为参考点，以optionXMargin和optionYMargin作为单位长度，xy乘积因子分别乘以单位长度就是OptionButton到参考点的x,y方向距离，根据这个距离和MenuButton的位置信息，就可以得出OptionButton的布局了**：
 
 ```
     //9个Option位置的x、y乘积因子
