@@ -28,7 +28,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
     private int drawableIds[] = {R.drawable.zero, R.drawable.one, R.drawable.two, R.drawable.three,
             R.drawable.four, R.drawable.five, R.drawable.six, R.drawable.seven};
     private ArrayList<OptionButton> optionButtonList;
-    //    private ArrayList<OnShowDisappearListener> listenerList;
     //“选项”占格个数
     private int optionPositionCount = 8;
     //“选项”占格列数
@@ -63,6 +62,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
     private int mOptionSD_AnimationMode = OptionButton.FROM_BUTTON_TOP;
     private int mOptionSD_AnimationDuration = 600;
+    private int mMenuAnimationDuration = 600;
     private OnOptionsClickListener mOnOptionsClickListener;
 
 
@@ -141,7 +141,7 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
             @Override
             public void onAnimationStart(Animation animation) {
                 mYMenuButton.setClickable(false);
-                Log.d(TAG, "onAnimationStart: ");
+//                Log.d(TAG, "onAnimationStart: ");
 
             }
 
@@ -155,8 +155,8 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
             }
         };
-        menuOpenAnimation.setDuration(mOptionSD_AnimationDuration);
-        menuCloseAnimation.setDuration(mOptionSD_AnimationDuration);
+        menuOpenAnimation.setDuration(mMenuAnimationDuration);
+        menuCloseAnimation.setDuration(mMenuAnimationDuration);
         menuOpenAnimation.setAnimationListener(animationListener);
         menuCloseAnimation.setAnimationListener(animationListener);
     }
@@ -171,7 +171,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         }
         for (Integer i : banArray) {
             if (i >= 0 && i < optionPositionCount) {
-                Log.d(TAG, "initBan: i " + i);
                 banList.set(i, true);
                 optionButtonCount--;
             } else {
@@ -227,7 +226,6 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
             if (!banList.get(i)) {
                 OptionButton optionButton = new OptionButton(mContext, i);
                 setOptionPosition(optionButton, mYMenuButton, i);
-                Log.d(TAG, "setOptionButtons: ");
                 optionButton.setOptionPrepareListener(this);
 //                mSetting.setOptionPosition(optionButton, mYMenuButton, i);
                 addView(optionButton);
@@ -239,9 +237,14 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
 
     @Override
     public void onOptionPrepare(OptionButton optionButton, int index) {
-        Log.d(TAG, "onOptionPrepare: ");
         optionButton.setShowAnimation(createOptionShowAnimation(optionButton, index));
         optionButton.setDisappearAnimation(createOptionDisappearAnimation(optionButton, index));
+        //在这里才设置Gone很重要，让View可以一开始就触发onGlobalLayout()进行初始化
+        if (isShowMenu){
+            optionButton.setVisibility(VISIBLE);
+        }else {
+            optionButton.setVisibility(GONE);
+        }
     }
 
     /**
@@ -315,7 +318,9 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         if (menuOpenAnimation == null) {
             menuOpenAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_null);
         }
-        menuOpenAnimation.setDuration(mOptionSD_AnimationDuration);
+        if (menuOpenAnimation.getDuration() == 0) {
+            menuOpenAnimation.setDuration(mMenuAnimationDuration);
+        }
         menuOpenAnimation.setAnimationListener(animationListener);
         this.menuOpenAnimation = menuOpenAnimation;
 
@@ -327,7 +332,9 @@ public abstract class YMenu extends RelativeLayout implements OptionButton.Optio
         if (menuCloseAnimation == null) {
             menuCloseAnimation = AnimationUtils.loadAnimation(mContext, R.anim.anim_null);
         }
-        menuCloseAnimation.setDuration(mOptionSD_AnimationDuration);
+        if (menuCloseAnimation.getDuration() == 0) {
+            menuCloseAnimation.setDuration(mOptionSD_AnimationDuration);
+        }
         menuCloseAnimation.setAnimationListener(animationListener);
         this.menuCloseAnimation = menuCloseAnimation;
     }

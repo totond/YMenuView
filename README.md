@@ -18,7 +18,7 @@
 ### Gradle
 
 ```
-    compile 'com.yanzhikaijky:YMenuView:2.0.0'
+    compile 'com.yanzhikaijky:YMenuView:2.0.1'
 ```
 
 ### 抽象类YMenu
@@ -233,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 
 ## 更新
 - **version 2.0.0*:2017/09/21 全新版本更新：可以实现自定义YMenu，增加3个YMenu类型，原YMenuView现在也是YMenu的一个子类。
+- - **version 2.0.1*:2017/09/25 修复`isShowMenu`属性设置无效问题，增加`menu_duration`属性，用于设置MenuButton的动画时长。
 
 ## 后续
 　　可能会实现自定义动画，还有给这些OptionButton加上轨迹等。

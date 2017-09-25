@@ -58,7 +58,7 @@ public class OptionButton extends android.support.v7.widget.AppCompatImageView {
 //                    setShowAndDisappear();
 
                     //在这里才设置Gone很重要，让View可以一开始就触发onGlobalLayout()进行初始化
-                    setVisibility(GONE);
+//                    setVisibility(GONE);
                     //设置完后立刻注销，不然会不断回调，浪费很多资源
                     getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }

@@ -22,6 +22,7 @@
             <enum name="FROM_BOTTOM" value="3"/>
         </attr>
         <attr name="sd_duration" format="integer"/>
+        <attr name="menu_duration" format="integer"/>
         <attr name="isShowMenu" format="boolean"/>
     </declare-styleable>
 </resources>

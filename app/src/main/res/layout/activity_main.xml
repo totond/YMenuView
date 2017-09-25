@@ -73,7 +73,6 @@
         android:id="@+id/ymv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isShowMenu="true"
         app:menuButtonBackGround="@drawable/setting"
         app:optionXMargin="50dp"
         app:optionYMargin="50dp"
