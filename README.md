@@ -2,9 +2,11 @@
 　　欢迎 Star or Fork！有什么意见和建议可以在Issue上提出。
 
 ![](https://i.imgur.com/GK8b2P0.gif)
+
 （前面是之前YMenuView1.x的效果，后面是新加的）
 
  > 传送门
+ 
  > [YMenuView1.x分析](http://blog.csdn.net/totond/article/details/77364137)
  > [YMenuView2.x分析](http://blog.csdn.net/totond/article/details/78059196)
  > [自定义YMenu教程](https://github.com/totond/YMenuView/blob/master/自定义YMenu教程.md)
@@ -232,8 +234,8 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 　　但是动画延时还是会算上不被填充的位置，这暂时无法避免，所以想要更好的体验效果的话就继承YMenu重写方法吧。
 
 ## 更新
-- **version 2.0.0*:2017/09/21 全新版本更新：可以实现自定义YMenu，增加3个YMenu类型，原YMenuView现在也是YMenu的一个子类。
-- - **version 2.0.1*:2017/09/25 修复`isShowMenu`属性设置无效问题，增加`menu_duration`属性，用于设置MenuButton的动画时长。
+- *version 2.0.0*:2017/09/21 全新版本更新：可以实现自定义YMenu，增加3个YMenu类型，原YMenuView现在也是YMenu的一个子类。
+- *version 2.0.1*:2017/09/25 修复`isShowMenu`属性设置无效问题，增加`menu_duration`属性，用于设置MenuButton的动画时长。
 
 ## 后续
 　　可能会实现自定义动画，还有给这些OptionButton加上轨迹等。
