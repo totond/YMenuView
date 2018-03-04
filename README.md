@@ -8,7 +8,9 @@
  > 传送门
  
  > [YMenuView1.x分析](http://blog.csdn.net/totond/article/details/77364137)
+
  > [YMenuView2.x分析](http://blog.csdn.net/totond/article/details/78059196)
+
  > [自定义YMenu教程](https://github.com/totond/YMenuView/blob/master/自定义YMenu教程.md)
 
 ## 简介
@@ -54,6 +56,7 @@
 |sd_animMode      | 进出动画选择     | enum| FROM_BUTTON_TOP|
 
 由于YMenuView2.0重构之后实现了继承YMenu可以实现各种布局，所以下图只是参考YMenu的一个子类——YMenuView的属性，MenuButton和OptionButton都是依靠右下边缘。
+
 ![](https://i.imgur.com/GIQRp3t.png)
 
 **对应的sd_animMode模式有（这是YMenuView特有的）：**
@@ -160,15 +163,20 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
 
 ### YMenu其他子类
 #### Circle8YMenu
+
 ![](https://i.imgur.com/TKPOKZq.gif)
+
 　　这是一个OptionButton围绕着MenuButton的布局，Option最大数量为8个，MenuButton的位置位于ViewGroup正中间，如果想改变的话可以继承Circle8YMenu，单单重写`setMenuPosition()`方法就可以了，这个是以`optionXMargin`为圆的半径。
 
 #### TreeYMenu
 ![](https://i.imgur.com/niud6YI.gif)
+
 　　这是一个OptionButton分布成分叉树的布局，Option最大数量为9个，MenuButton的位置位于ViewGroup中下方，支持了`menuToParentYMargin`属性。
 
 #### SquareYMenu
+
 ![](https://i.imgur.com/ucD4RQv.gif)
+
 　　这是一个OptionButton和MenuButton组成正方形的布局，Option最大数量为8个，MenuButton为位置依靠右下，支持了`menuToParentYMargin`和`menuToParentXMargin`属性。
 
 ### 自定义YMenu
@@ -218,22 +226,27 @@ public class MainActivity extends AppCompatActivity implements YMenuView.OnOptio
         //对Circle8YMenu
         mYMenu.setBanArray(0,2,4,6);
 ```
+
 ![](https://i.imgur.com/PVfbx8D.gif)
 
 ```
         //对TreeYMenu
         mYMenu.setBanArray(2,8,7);
 ```
+
 ![](https://i.imgur.com/96aVxwk.gif)
 
 ```
         //对SquareYMenu
         mYMenu.setBanArray(3,4,7,5,6);
 ```
+
 ![](https://i.imgur.com/WnloJhv.gif)
+
 　　但是动画延时还是会算上不被填充的位置，这暂时无法避免，所以想要更好的体验效果的话就继承YMenu重写方法吧。
 
 ## 更新
+
 - *version 2.0.0*:2017/09/21 全新版本更新：可以实现自定义YMenu，增加3个YMenu类型，原YMenuView现在也是YMenu的一个子类。
 - *version 2.0.1*:2017/09/25 修复`isShowMenu`属性设置无效问题，增加`menu_duration`属性，用于设置MenuButton的动画时长。
 
